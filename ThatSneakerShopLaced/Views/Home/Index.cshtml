@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ThatSneakerShopLaced.Models.Shoe>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <div class="row">
+            @foreach (var item in Model) {
+                @if(item != null){
+                    @if (item.Hidden == false){
+                        <div class="col-sm-6 col-md-4">
+                            <div class="card mb-4">
+                                <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" class="card-img-top" alt="@Html.DisplayFor(modelItem => item.ShoeName)">
+                                <div class="card-body">
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.ShoeName)</h5>
+                                    <p class="card-text">@Html.DisplayFor(modelItem => item.ShoeDescription)</p>
+                                    <p class="card-text">@Html.DisplayFor(modelItem => item.ShoePrice)</p>
+                                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+    </div>
+</div>
