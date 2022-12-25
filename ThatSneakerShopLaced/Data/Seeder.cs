@@ -13,8 +13,7 @@ namespace ThatSneakerShopLaced.Data {
                 context.Database.Migrate();
                 context.Database.EnsureCreated();
 
-               
-
+                // No roles in the database 
                 if (!context.Roles.Any()) {
                     Laced_User UserJacqueline = new Laced_User {
                         Email = "jaquelinedoe123@gmail.com",
@@ -76,6 +75,10 @@ namespace ThatSneakerShopLaced.Data {
                             new IdentityUserRole<string> { RoleId = "Manager", UserId = Admin.Id }
                         );
                     context.SaveChanges();
+                    // I had a error, it seemed that the roles were being made but the users not 
+                    // Then I made a new database and it worked perfectly 
+                    // But just in case roles are made and users not 
+                    // I create them here 
                 } else {
                     Laced_User UserDima = new Laced_User {
                         Email = "king-dima@gmail.com",
@@ -141,14 +144,6 @@ namespace ThatSneakerShopLaced.Data {
                         new Shoe { ShoeName = "Nike Dunk Low Halloween (2022)", ShoeDescription = "PHANTOM/BLACK-SAFETY ORANGE", ShoePrice = 210, Stock = 5, CategoryId = 3 , ImageUrl = "https://i.ibb.co/3rzKzct/Nike-Dunk-Low-Halloween.jpg" });
                     context.SaveChanges();
                 }
-
-                //if (!context.Wishlist.Any()){
-                //    context.Wishlist.AddRange(
-                //        new Wishlist { ShoeId = 1, CustomerId = "1"},
-                //        new Wishlist { ShoeId = 2, CustomerId = "2" },
-                //        new Wishlist { ShoeId = 3, CustomerId = "3" });
-                //    context.SaveChanges();
-                //}
             }
         }
     }

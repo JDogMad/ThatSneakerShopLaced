@@ -14,8 +14,7 @@ namespace ThatSneakerShopLaced.Controllers{
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
 
-            //TODO //
-            //_user = _context.Users.FirstOrDefault(u => u.UserName == httpContextAccessor.HttpContext.User.Identity.Name);
+            _user = _context.Users.FirstOrDefault(u => u.UserName == httpContextAccessor.HttpContext.User.Identity.Name);
         }
 
     }
