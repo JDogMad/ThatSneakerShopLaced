@@ -144,6 +144,14 @@ namespace ThatSneakerShopLaced.Data {
                         new Shoe { ShoeName = "Nike Dunk Low Halloween (2022)", ShoeDescription = "PHANTOM/BLACK-SAFETY ORANGE", ShoePrice = 210, Stock = 5, CategoryId = 3 , ImageUrl = "https://i.ibb.co/3rzKzct/Nike-Dunk-Low-Halloween.jpg" });
                     context.SaveChanges();
                 }
+
+                if (!context.Wishlist.Any()) {
+                    context.Wishlist.AddRange(
+                        new Wishlist { CustomerId = "109587cb-1938-4205-85ae-cf39feee8e87", ShoeId = 4 }, 
+                        new Wishlist { CustomerId = "91dd77d2-1e26-4d41-a348-f6e526e97a55", ShoeId = 6 }
+                        );
+                    context.SaveChanges();
+                }
             }
         }
     }

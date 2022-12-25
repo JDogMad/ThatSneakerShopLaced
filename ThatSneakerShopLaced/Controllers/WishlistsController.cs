@@ -22,7 +22,8 @@ namespace ThatSneakerShopLaced.Controllers
         // GET: Wishlists
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Wishlist.ToListAsync());
+            var applicationDbContext = _context.Wishlist.Include(s => s.Shoe).Include(s => s.Customer);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Wishlists/Details/5
@@ -34,6 +35,8 @@ namespace ThatSneakerShopLaced.Controllers
             }
 
             var wishlist = await _context.Wishlist
+                .Include(s => s.Shoe)
+                .Include(c => c.Customer)
                 .FirstOrDefaultAsync(m => m.WishlistId == id);
             if (wishlist == null)
             {
@@ -46,6 +49,8 @@ namespace ThatSneakerShopLaced.Controllers
         // GET: Wishlists/Create
         public IActionResult Create()
         {
+            ViewData["Id"] = new SelectList(_context.Users, "UserId", "UserName");
+            ViewData["ShoeId"] = new SelectList(_context.Shoe, "ShoeId", "ShoeName");
             return View();
         }
 
@@ -54,7 +59,7 @@ namespace ThatSneakerShopLaced.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WishlistId,CustomerId,Hidden")] Wishlist wishlist)
+        public async Task<IActionResult> Create([Bind("WishlistId,CustomerId,ShoeId,Hidden")] Wishlist wishlist)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +67,8 @@ namespace ThatSneakerShopLaced.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Id"] = new SelectList(_context.Users, "UserId", "UserName", wishlist.CustomerId);
+            ViewData["ShoeId"] = new SelectList(_context.Shoe, "ShoeId", "ShoeName", wishlist.ShoeId);
             return View(wishlist);
         }
 
@@ -78,6 +85,8 @@ namespace ThatSneakerShopLaced.Controllers
             {
                 return NotFound();
             }
+            ViewData["Id"] = new SelectList(_context.Users, "UserId", "UserName", wishlist.CustomerId);
+            ViewData["ShoeId"] = new SelectList(_context.Shoe, "ShoeId", "ShoeName", wishlist.ShoeId);
             return View(wishlist);
         }
 
@@ -86,7 +95,7 @@ namespace ThatSneakerShopLaced.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WishlistId,CustomerId,Hidden")] Wishlist wishlist)
+        public async Task<IActionResult> Edit(int id, [Bind("WishlistId,ShoeId,CustomerId,Hidden")] Wishlist wishlist)
         {
             if (id != wishlist.WishlistId)
             {
@@ -113,6 +122,8 @@ namespace ThatSneakerShopLaced.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Id"] = new SelectList(_context.Users, "UserId", "UserName", wishlist.CustomerId);
+            ViewData["ShoeId"] = new SelectList(_context.Shoe, "ShoeId", "ShoeName", wishlist.ShoeId);
             return View(wishlist);
         }
 

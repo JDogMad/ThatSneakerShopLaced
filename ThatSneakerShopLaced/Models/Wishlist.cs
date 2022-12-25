@@ -9,10 +9,9 @@ namespace ThatSneakerShopLaced.Models {
         public int WishlistId { get; set; }
 
         // Foreign Key with User //
-        public string CustomerId { get; set; }
-
         [ForeignKey("Id")]
         public virtual Laced_User Customer { get; set; }
+        public string CustomerId { get; set; }
 
         [ForeignKey("ShoeId")]
         public Shoe Shoe { get; set; }
