@@ -14,5 +14,6 @@ namespace ThatSneakerShopLaced.Data {
         public DbSet<ThatSneakerShopLaced.Models.Payment> Payment { get; set; }
         public DbSet<ThatSneakerShopLaced.Models.Shoe> Shoe { get; set; }
         public DbSet<ThatSneakerShopLaced.Models.Wishlist> Wishlist { get; set; }
+        public DbSet<ThatSneakerShopLaced.Models.CartItem> Cart { get; set; }
     }
 }

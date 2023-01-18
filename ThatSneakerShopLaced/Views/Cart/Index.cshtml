@@ -1,0 +1,111 @@
+﻿@model CartViewModel
+@using Microsoft.AspNetCore.Identity
+@using ThatSneakerShopLaced.Areas.Identity.Data
+@inject SignInManager<Laced_User> SignInManager
+@inject UserManager<Laced_User> UserManager
+
+@{
+	ViewData["Title"] = "Cart overview";
+}
+
+@if(Model.CartItems.Count > 0){
+<section class="h-100 h-custom" style="background-color: white;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="col-lg-8">
+                                <div class="p-5">
+                                    <div class="d-flex justify-content-between align-items-center mb-5">
+                                        <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                                    </div>
+                                    @{ decimal total = 0;}
+                                    <hr class="my-4">
+                                    @foreach(var item in Model.CartItems){
+                                            total += item.Price * item.Quantity;
+                                            <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                            <div class="row mb-4 d-flex justify-content-start align-items-center">
+                                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                                    <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.Image)"
+                                                        alt="@Html.DisplayFor(modelItem => item.ShoeName)" width="25">
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <h6 class="text-muted" name="name">@Html.DisplayFor(modelItem => item.ShoeName)</h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-mb-5">
+                                                    <h6 class="mb-0" style="margin-right: 10px;">@item.Price.ToString("C2")</h6>
+                                            </div>
+                                        </div>
+                                    }
+                                    
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="mb-0">
+                                            <a class="text-body" asp-controller="Home" asp-action="Index">
+                                                <i class="fas fa-long-arrow-alt-left me-2"></i>
+                                                Back to the shop
+                                            </a>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 bg-grey">
+                                <div class="p-5">
+                                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                                    <hr class="my-4">
+
+                                    @if(Model.CartItems.Count > 0 ){
+
+                                    } else {
+                                        <div>
+                                            <small class="mb-0">Nothing to see here.</small>
+                                        </div>
+                                    }
+
+                                    @foreach(var item in Model.CartItems){
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <h5 class="text-uppercase">@Html.DisplayFor(modelItem => item.ShoeName)</h5>
+                                                <h5>@Html.DisplayFor(modelItem => item.Total)</h5>
+                                            </div>
+                                    }
+                                    
+                                    <hr class="my-4">
+                                        <div class="d-flex justify-content-between mb-5">
+                                        <h5 class="text-uppercase">Total</h5>
+                                            <h5>@total</h5>
+                                    </div>
+
+                                    @if (SignInManager.IsSignedIn(User)) {
+                                            <button type="button" class="btn btn-dark btn-block btn-lg"data-mdb-ripple-color="dark">
+                                                <a style="color:white; text-decoration:none;" asp-controller="Cart" asp-action="ShippingInfo" >Continue to checkout</a>
+                                            </button>
+                                    } else {
+                                            <h6 class="mb-0">
+                                                <a class="text-body" asp-area="Identity" asp-page="/Account/Register">
+                                                    <i class="fas fa-long-arrow-alt-left me-2"></i>
+                                                    Please sign in to continue
+                                                </a>
+                                            </h6>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+} else {
+    <div>
+        <h3 class="mb-0">You're cart is empty.</h3>
+        <small>
+            <a style="color:gray; text-decoration:gray" asp-controller="Home" asp-action="Index">
+                <i class="fas fa-long-arrow-alt-left me-2"></i>
+                Continue shopping
+            </a>
+        </small>
+    </div>
+}

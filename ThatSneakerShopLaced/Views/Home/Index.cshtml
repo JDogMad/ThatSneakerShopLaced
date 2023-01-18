@@ -6,27 +6,26 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-    <div class="row">
-            @foreach (var item in Model) {
-                @if(item != null){
-                    @if (item.Hidden == false){
-                        <div class="col-sm-6 col-md-4">
-                            <div class="card mb-4">
-                                <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" class="card-img-top" alt="@Html.DisplayFor(modelItem => item.ShoeName)">
-                                <div class="card-body">
+<section class="bg-light pt-5 pb-5 shadow-sm">
+    <div class="container">
+        <div class="row">
+                @foreach(var item in Model){
+                    @if(item != null){
+                        @if(item.Hidden == false){
+                        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
+                            <div class="card">
+                                <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" class="card-img-top" alt="@Html.DisplayFor(modelItem => item.ShoeName)" height="210px">
+                                <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.ShoeName)</h5>
-                                    <p class="card-text">@Html.DisplayFor(modelItem => item.ShoeDescription)</p>
-                                    <p class="card-text">@Html.DisplayFor(modelItem => item.ShoePrice)</p>
-                                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                                    <p class="card-text mb-4">@Html.DisplayFor(modelItem => item.ShoeDescription)</p>
+                                    <p class="card-text mb-4">@Html.DisplayFor(modelItem => item.ShoePrice)</p>
+                                    <a class="btn btn-primary mt-auto align-self-end" asp-controller="Cart" asp-action="Add" asp-route-id="@item.ShoeId">Add to cart</a>
                                 </div>
                             </div>
                         </div>
+                        }
                     }
                 }
-            }
+        </div>
     </div>
-</div>
+</section>

@@ -15,6 +15,14 @@ namespace ThatSneakerShopLaced{
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllersWithViews();
 
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.IsEssential = true;  
+                });
+
+
             // Add Entity Framework and Identity
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -53,6 +61,8 @@ namespace ThatSneakerShopLaced{
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>{
                 endpoints.MapControllerRoute(

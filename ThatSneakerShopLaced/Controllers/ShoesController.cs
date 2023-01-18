@@ -20,8 +20,7 @@ namespace ThatSneakerShopLaced.Controllers
         }
 
         // GET: Shoes
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             var applicationDbContext = _context.Shoe.Include(s => s.Category);
             return View(await applicationDbContext.ToListAsync());
         }

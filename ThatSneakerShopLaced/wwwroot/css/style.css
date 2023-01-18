@@ -1,7 +1,5 @@
-﻿body {
-
-}
-
-#shoe-card {
-    height: 200px !important;
+﻿#dashboard_bg{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../img/bg_dashboard.png');
 }

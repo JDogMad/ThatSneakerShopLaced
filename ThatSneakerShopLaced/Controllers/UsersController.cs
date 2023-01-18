@@ -11,19 +11,18 @@ using ThatSneakerShopLaced.Models;
 namespace ThatSneakerShopLaced.Controllers {
 
     [Authorize(Roles = "Admin")]
-    public class UsersController : LacedController{
+    public class UsersController : LacedController {
         public UsersController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<LacedController> logger)
-                : base(context, httpContextAccessor, logger) { }
+                : base(context, httpContextAccessor, logger) { 
+        }
 
             public IActionResult Index(string userName, string firstName, string lastName, string email, int? pageNumber) {
                 List<UserViewModel> vmUsers = new List<UserViewModel>();
-                List<Laced_User> users = _context.Users
-                                                    .Where(u => u.UserName != "KingDima55"
+                List<Laced_User> users = _context.Users.Where(u => u.UserName != "KingDima55"
                                                             && (u.UserName.Contains(userName) || string.IsNullOrEmpty(userName))
                                                             && (u.FirstName.Contains(firstName) || string.IsNullOrEmpty(firstName))
                                                             && (u.LastName.Contains(lastName) || string.IsNullOrEmpty(lastName))
-                                                            && (u.Email.Contains(email) || string.IsNullOrEmpty(email)))
-                                                    .ToList();
+                                                            && (u.Email.Contains(email) || string.IsNullOrEmpty(email))).ToList();
                 foreach (Laced_User user in users) {
                     vmUsers.Add(new UserViewModel {
                         Email = user.Email,
@@ -83,5 +82,5 @@ namespace ThatSneakerShopLaced.Controllers {
                 return RedirectToAction("Index");
             }
 
-        }
     }
+}

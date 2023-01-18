@@ -124,9 +124,11 @@ namespace ThatSneakerShopLaced.Areas.Identity.Pages.Account
                 } else {
                     _logger.LogError("Error with login: " + result.ToString());
                 }
+
                 if (result.RequiresTwoFactor) {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 }
+
                 if (result.IsLockedOut) {
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
@@ -134,6 +136,7 @@ namespace ThatSneakerShopLaced.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
+
             } else if (!ModelState.IsValid) {
                 foreach (var state in ModelState.Values) {
                     foreach (var error in state.Errors) {

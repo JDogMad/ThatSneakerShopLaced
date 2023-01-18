@@ -1,4 +1,8 @@
 ﻿@model Paginas<ThatSneakerShopLaced.Models.ViewModels.UserViewModel>
+@using Microsoft.AspNetCore.Identity
+@using ThatSneakerShopLaced.Areas.Identity.Data
+@inject SignInManager<Laced_User> SignInManager
+@inject UserManager<Laced_User> UserManager
 
 @{
     ViewData["Title"] = "Users";
@@ -7,26 +11,17 @@
 
 }
 
+@if(User.IsInRole("Admin")){
 <h1>Users</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th>
-                User    
-            </th>
-            <th>
-                First name
-            </th>
-            <th>
-                Last name
-            </th>
-            <th>
-                E-mail
-            </th>
-            <th>
-                Roles
-            </th>
+            <th> User </th>
+            <th> First name </th>
+            <th> Last name </th>
+            <th> E-mail </th>
+            <th> Roles </th>
             <th></th>
         </tr>
         <form method="get" asp-action="Index" asp-controller="Users">
@@ -81,10 +76,8 @@
     </tbody>
 </table>
 
-@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
+var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 
 <a asp-action="Index"
    asp-route-userName=@ViewData["userName"]
@@ -102,3 +95,8 @@
    class="btn btn-default @nextDisabled">
     Next
 </a>
+
+}
+
+
+

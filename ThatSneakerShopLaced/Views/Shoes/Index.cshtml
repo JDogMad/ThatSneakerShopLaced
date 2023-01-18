@@ -1,61 +1,96 @@
 ﻿@model IEnumerable<ThatSneakerShopLaced.Models.Shoe>
+@using Microsoft.AspNetCore.Identity
+@using ThatSneakerShopLaced.Areas.Identity.Data
+@inject SignInManager<Laced_User> SignInManager
+@inject UserManager<Laced_User> UserManager
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ShoeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShoeDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShoePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Stock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-                @if (item.Hidden == false){
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ShoeName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ShoeDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ShoePrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Stock)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.ShoeId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ShoeId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ShoeId">Delete</a>
-                    </td>
-                }
-        </tr>
+@if(User.IsInRole("Admin") || User.IsInRole("Manager")){
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-8 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Shoes</h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.ShoeName)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.ShoeDescription)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.ShoePrice)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Stock)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Category)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model) {
+                                            <tr>
+                                                @if (item.Hidden == false) {
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.ShoeName)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.ShoeDescription)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.ShoePrice)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Stock)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                                                    </td>
+                                                    @if (User.IsInRole("Admin")) {
+                                                        <td>
+                                                            <a asp-action="Details" asp-route-id="@item.ShoeId">Details</a> |
+                                                            <a asp-action="Delete" asp-route-id="@item.ShoeId">Delete</a> |
+                                                            <a asp-action="Create">Create New</a>
+                                                        </td>
+                                                    }
+                                                    <td><a asp-action="Edit" asp-route-id="@item.ShoeId">Edit</a></td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex align-items-start flex-column" style="height: 200px;">
+            <button class="p-2">
+                <a class="nav-link text-dark" asp-action="Create">See more</a>
+            </button>
+            <button class="p-2">
+                <a class="nav-link text-dark" asp-action="Create">See more</a>
+            </button>
+            <button class="p-2">
+                <a class="nav-link text-dark" asp-action="Create">See more</a>
+            </button>
+        </div>
+    </div>
 }
-    </tbody>
-</table>
+
+
+
+
+

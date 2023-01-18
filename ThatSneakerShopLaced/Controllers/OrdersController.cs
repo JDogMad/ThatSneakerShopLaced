@@ -5,38 +5,33 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SendGrid.Helpers.Mail;
+using ThatSneakerShopLaced.Areas.Identity.Data;
 using ThatSneakerShopLaced.Data;
 using ThatSneakerShopLaced.Models;
 
-namespace ThatSneakerShopLaced.Controllers
-{
-    public class OrdersController : Controller
-    {
+namespace ThatSneakerShopLaced.Controllers {
+    public class OrdersController : Controller {
         private readonly ApplicationDbContext _context;
 
-        public OrdersController(ApplicationDbContext context)
-        {
+        public OrdersController(ApplicationDbContext context) {
             _context = context;
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
               return View(await _context.Order.ToListAsync());
         }
 
         // GET: Orders/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Order == null)
-            {
+        public async Task<IActionResult> Details(int? id) {
+            if (id == null || _context.Order == null) {
                 return NotFound();
             }
 
             var order = await _context.Order
                 .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
+            if (order == null) {
                 return NotFound();
             }
 
@@ -44,8 +39,7 @@ namespace ThatSneakerShopLaced.Controllers
         }
 
         // GET: Orders/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             return View();
         }
 
@@ -54,10 +48,8 @@ namespace ThatSneakerShopLaced.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,Total,Hidden,CustomerId")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,Total,Hidden,CustomerId")] Order order) {
+            if (ModelState.IsValid) {
                 _context.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -66,16 +58,13 @@ namespace ThatSneakerShopLaced.Controllers
         }
 
         // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Order == null)
-            {
+        public async Task<IActionResult> Edit(int? id) {
+            if (id == null || _context.Order == null) {
                 return NotFound();
             }
 
             var order = await _context.Order.FindAsync(id);
-            if (order == null)
-            {
+            if (order == null) {
                 return NotFound();
             }
             return View(order);
@@ -86,28 +75,19 @@ namespace ThatSneakerShopLaced.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,Total,Hidden,CustomerId")] Order order)
-        {
-            if (id != order.OrderId)
-            {
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,Total,Hidden,CustomerId")] Order order) {
+            if (id != order.OrderId) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid) {
+                try {
                     _context.Update(order);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrderExists(order.OrderId))
-                    {
+                } catch (DbUpdateConcurrencyException) {
+                    if (!OrderExists(order.OrderId)) {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -117,8 +97,7 @@ namespace ThatSneakerShopLaced.Controllers
         }
 
         // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
+        public async Task<IActionResult> Delete(int? id) {
             var orders = _context.Order.Find(id);
             if (orders == null) {
                 // Category not found
@@ -137,15 +116,12 @@ namespace ThatSneakerShopLaced.Controllers
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Order == null)
-            {
+        public async Task<IActionResult> DeleteConfirmed(int id) {
+            if (_context.Order == null) {
                 return Problem("Entity set 'ApplicationDbContext.Order'  is null.");
             }
             var order = await _context.Order.FindAsync(id);
-            if (order != null)
-            {
+            if (order != null) {
                 _context.Order.Remove(order);
             }
             
@@ -153,9 +129,8 @@ namespace ThatSneakerShopLaced.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrderExists(int id)
-        {
+        private bool OrderExists(int id) {
           return _context.Order.Any(e => e.OrderId == id);
         }
-    }
+    }   
 }
