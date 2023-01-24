@@ -35,8 +35,22 @@
                                                     <h6 class="text-muted" name="name">@Html.DisplayFor(modelItem => item.ShoeName)</h6>
                                                 </div>
                                             </div>
+                                            <div class="col-mb-5 d-flex justify-content-center align-items-center">
+                                                <a class="nav-link text-dark" asp-controller="Cart" asp-action="Add" asp-route-id="@item.ShoeId">
+                                                    <img id="img_increase" alt="icon increase" src="~/img/add_item.png" Width="15" />
+                                                </a>
+                                                <h6 class="mb-0">@item.Quantity</h6>
+                                                <a class="nav-link text-dark" asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ShoeId">
+                                                    <img id="img_decrease" alt="icon decrease" src="~/img/minus.png" Width="15" />
+                                                </a>
+                                            </div>
                                             <div class="col-mb-5">
-                                                    <h6 class="mb-0" style="margin-right: 10px;">@item.Price.ToString("C2")</h6>
+                                                <h6 class="mb-0" style="margin-right: 10px;">@item.Price.ToString("C2")</h6>
+                                            </div>
+                                            <div class="col-mb-5">
+                                                <a class="nav-link text-dark" asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ShoeId">
+                                                    <img id="img_remove" alt="icon remove" src="~/img/remove.png" Width="20" />
+                                                </a>
                                             </div>
                                         </div>
                                     }
@@ -78,16 +92,16 @@
                                     </div>
 
                                     @if (SignInManager.IsSignedIn(User)) {
-                                            <button type="button" class="btn btn-dark btn-block btn-lg"data-mdb-ripple-color="dark">
-                                                <a style="color:white; text-decoration:none;" asp-controller="Cart" asp-action="ShippingInfo" >Continue to checkout</a>
-                                            </button>
+                                        <button type="button" class="btn btn-dark btn-block btn-lg"data-mdb-ripple-color="dark">
+                                            <a style="color:white; text-decoration:none;" asp-controller="Cart" asp-action="ShippingInfo" >Continue to checkout</a>
+                                        </button>
                                     } else {
-                                            <h6 class="mb-0">
-                                                <a class="text-body" asp-area="Identity" asp-page="/Account/Register">
-                                                    <i class="fas fa-long-arrow-alt-left me-2"></i>
-                                                    Please sign in to continue
-                                                </a>
-                                            </h6>
+                                        <h6 class="mb-0">
+                                            <a class="text-body" asp-area="Identity" asp-page="/Account/Register">
+                                                <i class="fas fa-long-arrow-alt-left me-2"></i>
+                                                Please sign in to continue
+                                            </a>
+                                        </h6>
                                     }
                                 </div>
                             </div>

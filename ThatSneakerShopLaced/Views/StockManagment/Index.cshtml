@@ -1,0 +1,28 @@
+﻿@page
+@model StockMangement
+@{
+    ViewData["Title"] = "Stock Management";
+}
+
+<h1>Stock Management</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Stock</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var shoe in Model.Shoes) {
+            <tr>
+                <td>@shoe.ShoeName</td>
+                <td>@shoe.Stock</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@shoe.ShoeId">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

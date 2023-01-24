@@ -1,7 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Stripe;
+using ThatSneakerShopLaced.Application;
 using ThatSneakerShopLaced.Areas.Identity.Data;
+using ThatSneakerShopLaced.Contracts;
 using ThatSneakerShopLaced.Data;
 namespace ThatSneakerShopLaced{
     public class StartUp {
@@ -20,7 +25,7 @@ namespace ThatSneakerShopLaced{
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.IsEssential = true;  
-                });
+            });
 
 
             // Add Entity Framework and Identity
@@ -31,14 +36,24 @@ namespace ThatSneakerShopLaced{
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddRazorPages();
+            // Add Localization
+            services.AddLocalization(option => option.ResourcesPath = "Localizing");
+
+            // Add Api
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Stock Management API", Version = "v1" });
+            });
+            services.AddHttpClient();
+
+
             services.AddControllersWithViews();
             // Add MVC and Razor pages
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddRazorPagesOptions(options => {
                     options.Conventions.AuthorizePage("/Index");
                     options.Conventions.AuthorizePage("/Privacy");
-                });
+                }).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
             services.AddLogging(logging => logging.AddConsole());
 
         }
@@ -69,6 +84,12 @@ namespace ThatSneakerShopLaced{
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+            });
+
+            // Middleware for the Swagger Api
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock Management API V1");
             });
 
             Seeder.Initialize(app);

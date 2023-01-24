@@ -27,11 +27,11 @@
             <div class="container-fluid">
                 @if(User.IsInRole("Admin")){
                     <span onclick="openNav()"> 
-                        <img id="img_logo" alt="logo" src="img/laced_logo.png" Width="100" />
+                        <img id="img_logo" alt="logo" src="~/img/laced_logo.png" Width="100" />
                     </span>
                 } else {
                     <a asp-controller="Home" asp-action="Index">
-                        <img id="img_logo" alt="logo" src="img/laced_logo.png" Width="100" />
+                        <img id="img_logo" alt="logo" src="~/img/laced_logo.png" Width="100" />
                     </a>
                 }
                                 
@@ -58,7 +58,7 @@
                         }
                     </ul>
                     <a class="nav-link text-dark" asp-controller="Cart">
-                        <img id="img_cart" alt="logo" src="img/shopping-cart.png" Width="25" />
+                        <img id="img_cart" alt="logo" src="~/img/shopping-cart.png" Width="25" />
                     </a>
                     <partial name="_LoginPartial" />
                 </div>

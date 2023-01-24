@@ -44,6 +44,7 @@ namespace ThatSneakerShopLaced.Controllers {
             return View("Cart", cartVM);
         }
 
+        // Create a new cart or increase the quantity by 1
         public async Task<IActionResult> Add(int id){
             Shoe shoe = await _context.Shoe.FindAsync(id);
 
@@ -57,10 +58,42 @@ namespace ThatSneakerShopLaced.Controllers {
             }
 
             HttpContext.Session.setJson("Cart", cart);
-            TempData["Succes"] = "The product has been added!";
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+        // Decrease Quantity by 1
+        public async Task<IActionResult> Decrease(int id) {
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+
+            CartItem cartItem = cart.Where(c => c.ShoeId == id).FirstOrDefault();
+
+            if(cartItem.Quantity > 1) {
+                --cartItem.Quantity;
+            } else {
+                cart.RemoveAll(c => c.ShoeId == id);
+            }
+
+            if (cart.Count == 0) {
+                HttpContext.Session.Remove("Cart");
+            } else {
+                HttpContext.Session.setJson("Cart", cart);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        // Remove item from cart
+        public async Task<IActionResult> Remove(int id) {
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+            var itemToRemove = cart.FirstOrDefault(c => c.ShoeId == id);
+            if (itemToRemove != null) {
+                cart.Remove(itemToRemove);
+            }
+            HttpContext.Session.setJson("Cart", cart);
+            return RedirectToAction("Index");
+        }
+
 
         public IActionResult ShippingInfo() {
             var user = _context.Users.SingleOrDefault(u => u.UserName == User.Identity.Name);
@@ -88,7 +121,5 @@ namespace ThatSneakerShopLaced.Controllers {
 
             return RedirectToAction("NextStepInCheckoutProcess");
         }
-
-
     }
 }

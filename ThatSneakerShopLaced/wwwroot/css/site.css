@@ -126,7 +126,17 @@ input:focus, textarea:focus {
 
 /* Login styling */
 #login-bg {
-    background: url('../img/2.png') no-repeat;
-    background-position: center top;
-    background-size: 100% auto;
+    background: url('../img/login-bg.png');
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+    background-size: 100% 100%;
 }
+
+/* Register styling */
+#register-bg {
+    background: url('../img/register-bg.png');
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+    background-size: 100% 93%;
+}
+

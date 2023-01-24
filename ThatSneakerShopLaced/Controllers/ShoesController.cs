@@ -8,10 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using ThatSneakerShopLaced.Data;
 using ThatSneakerShopLaced.Models;
 
-namespace ThatSneakerShopLaced.Controllers
-{
-    public class ShoesController : Controller
-    {
+namespace ThatSneakerShopLaced.Controllers {
+    public class ShoesController : Controller  {
         private readonly ApplicationDbContext _context;
 
         public ShoesController(ApplicationDbContext context)
@@ -92,15 +90,12 @@ namespace ThatSneakerShopLaced.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShoeId,ShoeName,ShoeDescription,ShoePrice,Stock,Hidden,CategoryId")] Shoe shoe)
-        {
-            if (id != shoe.ShoeId)
-            {
+        public async Task<IActionResult> Edit(int id, [Bind("ShoeId,ShoeName,ShoeDescription,ShoePrice,Stock,Hidden,CategoryId")] Shoe shoe){
+            if (id != shoe.ShoeId) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 try
                 {
                     _context.Update(shoe);
@@ -161,9 +156,10 @@ namespace ThatSneakerShopLaced.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ShoeExists(int id)
-        {
+        private bool ShoeExists(int id) {
           return _context.Shoe.Any(e => e.ShoeId == id);
         }
+
+
     }
 }
