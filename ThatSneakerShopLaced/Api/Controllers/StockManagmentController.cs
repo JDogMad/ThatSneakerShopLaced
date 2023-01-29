@@ -5,25 +5,30 @@ using ThatSneakerShopLaced.Data;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
+using ThatSneakerShopLaced.Models.ViewModels;
 
-
-namespace ThatSneakerShopLaced.Controllers {
+namespace ThatSneakerShopLaced.Api.Controllers
+{
 
     [Authorize(Roles = "Manager")]
     [Route("api/[controller]")]
     [ApiController]
-    public class StockManagmentController : Controller {
+    public class StockManagmentController : Controller
+    {
         private readonly ApplicationDbContext _context;
 
-        public StockManagmentController(ApplicationDbContext context) {
+        public StockManagmentController(ApplicationDbContext context)
+        {
             _context = context;
         }
 
         // GET: api/StockManagment/Shoes
         [HttpGet("Shoes")]
-        public async Task<IActionResult> GetAllShoes() {
+        public async Task<IActionResult> GetAllShoes()
+        {
             var stock = await _context.Shoe.ToListAsync();
-            if (stock == null) {
+            if (stock == null)
+            {
                 return NotFound();
             }
             return Ok(stock);
@@ -31,18 +36,32 @@ namespace ThatSneakerShopLaced.Controllers {
 
         // GET: api/StockManagment/Shoes/5
         [HttpGet("Shoes/{id}")]
-        public async Task<IActionResult> GetShoeById(int id) {
+        public async Task<IActionResult> GetShoeById(int id)
+        {
             var stock = await _context.Shoe.FindAsync(id);
-            if (stock == null){
+            if (stock == null)
+            {
                 return NotFound();
             }
             return Ok(stock);
         }
 
+        // GET: api/StockManagment/Index
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var stock = await _context.Shoe.ToListAsync();
+            return View(stock);
+        }
+
+
+
         // POST: api/StockManagment/Shoes
         [HttpPost("Shoes")]
-        public async Task<IActionResult> CreateShoe([FromBody] Shoe shoe) {
-            if (!ModelState.IsValid) {
+        public async Task<IActionResult> CreateShoe([FromBody] Shoe shoe)
+        {
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
             _context.Shoe.Add(shoe);
@@ -52,23 +71,32 @@ namespace ThatSneakerShopLaced.Controllers {
 
         // PUT: api/StockManagment/Shoes/5
         [HttpPut("Shoes/{id}")]
-        public async Task<IActionResult> UpdateShoe(int id, [FromBody] Shoe shoe) {
-            if (!ModelState.IsValid) {
+        public async Task<IActionResult> UpdateShoe(int id, [FromBody] Shoe shoe)
+        {
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 
-            if (id != shoe.ShoeId) {
+            if (id != shoe.ShoeId)
+            {
                 return BadRequest();
             }
 
-            _context.Entry(shoe).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(shoe).State = EntityState.Modified;
 
-            try {
+            try
+            {
                 await _context.SaveChangesAsync();
-            } catch (DbUpdateConcurrencyException){
-                if (!ShoeExists(id)){
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ShoeExists(id))
+                {
                     return NotFound();
-                } else {
+                }
+                else
+                {
                     throw;
                 }
             }
@@ -78,9 +106,11 @@ namespace ThatSneakerShopLaced.Controllers {
 
         // DELETE: api/StockManagment/Shoes/5
         [HttpDelete("Shoes/{id}")]
-        public async Task<IActionResult> DeleteShoe(int id) {
+        public async Task<IActionResult> DeleteShoe(int id)
+        {
             var shoe = await _context.Shoe.FindAsync(id);
-            if (shoe == null) {
+            if (shoe == null)
+            {
                 return NotFound();
             }
 
@@ -90,7 +120,8 @@ namespace ThatSneakerShopLaced.Controllers {
             return NoContent();
         }
 
-        private bool ShoeExists(int id) {
+        private bool ShoeExists(int id)
+        {
             return _context.Shoe.Any(e => e.ShoeId == id);
         }
     }

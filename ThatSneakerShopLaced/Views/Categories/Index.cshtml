@@ -1,38 +1,73 @@
 ﻿@model IEnumerable<ThatSneakerShopLaced.Models.Category>
+@using Microsoft.AspNetCore.Identity
+@using ThatSneakerShopLaced.Areas.Identity.Data
+@inject SignInManager<Laced_User> SignInManager
+@inject UserManager<Laced_User> UserManager
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+@if(User.IsInRole("Admin") || User.IsInRole("Manager")){
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-8 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Shoes</h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.CategoryName)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model) {
+                                            <tr>
+                                                @if (item.Hidden == false) {
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.CategoryName)
+                                                    </td>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-                @if (item.Hidden == false){
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CategoryName)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
-                    </td>
-                }
-            
-        </tr>
+                                                    <td><a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a></td>
+                                                    <td><a asp-action="Details" asp-route-id="@item.CategoryId">Details</a></td>
+                                                    <td><a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a></td>
+                                                    <td><a asp-action="Create" asp-route-id="@item.CategoryId">Add new</a></td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex align-items-start flex-column" style="height: 200px;">
+            <button class="p-2">
+                <a class="nav-link text-dark" asp-action="Create">See more</a>
+            </button>
+            <button class="p-2">
+                <a class="nav-link text-dark" asp-action="Create">See more</a>
+            </button>
+            <button class="p-2">
+                <a class="nav-link text-dark" asp-action="Create">See more</a>
+            </button>
+        </div>
+    </div>
+} else {
+    <p class="text-danger">Access denied.</p>
+    <small>
+        <a style="color:gray; text-decoration:gray" asp-controller="Home" asp-action="Index">
+            <i class="fas fa-long-arrow-alt-left me-2"></i>
+            Return home
+        </a>
+    </small>
 }
-    </tbody>
-</table>
+

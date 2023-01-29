@@ -1,4 +1,9 @@
 ﻿@model ThatSneakerShopLaced.Models.Order
+@using Microsoft.AspNetCore.Identity
+@using ThatSneakerShopLaced.Areas.Identity.Data
+@inject SignInManager<Laced_User> SignInManager
+@inject UserManager<Laced_User> UserManager
+
 
 @{
     ViewData["Title"] = "Create";

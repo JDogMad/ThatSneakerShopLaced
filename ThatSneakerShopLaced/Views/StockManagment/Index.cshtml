@@ -1,28 +1,49 @@
-﻿@page
-@model StockMangement
-@{
-    ViewData["Title"] = "Stock Management";
-}
+﻿@{ ViewData["Title"] = "Stock Management"; }
 
-<h1>Stock Management</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Stock</th>
-            <th>Edit</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var shoe in Model.Shoes) {
-            <tr>
-                <td>@shoe.ShoeName</td>
-                <td>@shoe.Stock</td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@shoe.ShoeId">Edit</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <h4 class="card-title">Stock</h4>
+            </div>
+            <div class="table">
+                <table class="table" id="shoe_stock-table">
+                    <thead>
+                        <tr>
+                            <th>Shoe</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                        
+                    </tbody>
+                </table>
+            </div>    
+        </div>
+    </div>
+</div>
+
+<script>
+    fetch('/api/StockManagment/Shoes')
+        .then(response => response.json())
+        .then(data => {
+            let table = document.getElementById("shoe_stock-table");
+            let rows = "";
+            data.forEach(shoe => {
+                let rowClass = "shoe-row";
+                if (shoe.stock <= 5) {
+                    rowClass += "low-stock";
+                }
+                rows += `<tr class="${rowClass}">
+                    <td>${shoe.shoeName}</td>
+                    <td>€ ${shoe.shoePrice}</td>
+                    <td>${shoe.stock}</td>
+                    <td><button class='order-more'> Order more</button></td>
+                </tr>`;
+            });
+            table.innerHTML = rows;
+        });
+</script>
+

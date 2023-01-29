@@ -18,15 +18,11 @@ namespace ThatSneakerShopLaced{
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddControllersWithViews();
-
-
             services.AddDistributedMemoryCache();
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.IsEssential = true;  
             });
-
 
             // Add Entity Framework and Identity
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -45,6 +41,8 @@ namespace ThatSneakerShopLaced{
             });
             services.AddHttpClient();
 
+            //services.AddTransient<IStripeAppService, StripeAppService>();
+            services.AddStripeInfrastructure(Configuration);
 
             services.AddControllersWithViews();
             // Add MVC and Razor pages
@@ -92,6 +90,9 @@ namespace ThatSneakerShopLaced{
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock Management API V1");
             });
 
+            app.UseCors(options => options.WithOrigins("http://localhost:7002")
+                              .AllowAnyMethod()
+                              .AllowAnyHeader());
             Seeder.Initialize(app);
         }
     }

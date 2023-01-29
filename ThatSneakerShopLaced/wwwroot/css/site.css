@@ -86,7 +86,7 @@ body {
     margin-bottom: 0
 }
 
-input, textarea, button {
+input, textarea {
     padding: 8px 15px;
     border-radius: 5px !important;
     margin: 5px 0px;
@@ -139,4 +139,5 @@ input:focus, textarea:focus {
     background-position: 0% 0%;
     background-size: 100% 93%;
 }
+
 

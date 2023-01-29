@@ -1,0 +1,39 @@
+﻿@model ThatSneakerShopLaced.Models.Stripe.AddStripeCustomer
+
+<form asp-controller="Stripe" asp-action="AddStripeCustomer">
+    <input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" />
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" id="email" name="email" value="@Model.Email" />
+    </div>
+    <div class="form-group">
+        <label for="fullName">Name</label>
+        <input class="form-control" id="fullName" name="fullName" value="@ViewData["fullname"]" />
+    </div>
+
+    <div class="form-group">
+        <div class="form-group">
+            <label asp-for="CreditCard.CardNumber">Card Number</label>
+            <input asp-for="CreditCard.CardNumber" class="form-control" />
+            <span asp-validation-for="CreditCard.CardNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreditCard.ExpirationYear">Expiry Year</label>
+            <input asp-for="CreditCard.ExpirationYear" class="form-control" />
+            <span asp-validation-for="CreditCard.ExpirationYear" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreditCard.ExpirationMonth">Expiry Month</label>
+            <input asp-for="CreditCard.ExpirationMonth" class="form-control" />
+            <span asp-validation-for="CreditCard.ExpirationMonth" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreditCard.Cvc">CVC</label>
+            <input asp-for="CreditCard.Cvc" class="form-control" />
+            <span asp-validation-for="CreditCard.Cvc" class="text-danger"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Customer</button>
+</form>
+

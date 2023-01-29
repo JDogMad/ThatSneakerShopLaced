@@ -6,7 +6,7 @@
 
 @{}
 
-@if(User.IsInRole("Admin") || User.IsInRole("Manager")){
+@if(User.IsInRole("Admin")){
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="row">
@@ -151,7 +151,7 @@
                             <div class="d-flex justify-content-between">
                                 <h4 class="card-title">Shoes</h4>
                                 <button type="button" class="btn btn-light">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Shoes" asp-action="Index">See more</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="StockManagment" asp-action="Index">See more</a>
                                 </button>
                             </div>
                             <div class="table-responsive">
@@ -215,6 +215,52 @@
                                         }
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title">Orders</h4>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        @if (((List<OrderViewModel>)ViewData["orders"]).Count == 0){
+                                            <h5 class="mb-0">No orders yet.</h5>
+                                            <small>It's only a matter of time!</small>
+                                        } else {
+                                            <thead>
+                                                <tr>
+                                                    <th>OrderId</th>
+                                                    <th>Order date</th>
+                                                    <th>Total</th>
+                                                    <th>Customer</th>
+                                                    <th>Country</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var order in (List<OrderViewModel>)ViewData["orders"]) {
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="ms-3">
+                                                                    <p class="fw-bold mb-1">@Html.DisplayFor(modelItem => order.OrderId)</p>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><p class="fw-bold mb-1">@Html.DisplayFor(modelItem => order.OrderDate)</p></td>
+                                                        <td><p class="text-muted mb-0">@Html.DisplayFor(modelItem => order.OrderTotal)</p></td>
+                                                        <td><p class="text-muted mb-0">@Html.DisplayFor(modelItem => order.Customer.FirstName)</p></td>
+                                                        <td><p class="text-muted mb-0">@Html.DisplayFor(modelItem => order.Customer.Country)</p></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        }
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -119,7 +119,7 @@ namespace ThatSneakerShopLaced.Controllers {
             user.Country = model.Country;
             _context.SaveChanges();
 
-            return RedirectToAction("NextStepInCheckoutProcess");
+            return RedirectToAction("AddCustomer", "Stripe");
         }
     }
 }

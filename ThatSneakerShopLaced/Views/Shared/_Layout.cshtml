@@ -46,12 +46,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
-                        @if(User.IsInRole("Admin")){
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
-                            </li>
-                        }
-                        @if (User.IsInRole("Manager")) {
+                        @if(User.IsInRole("Admin") || User.IsInRole("Manager")){
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
                             </li>
@@ -60,6 +55,12 @@
                     <a class="nav-link text-dark" asp-controller="Cart">
                         <img id="img_cart" alt="logo" src="~/img/shopping-cart.png" Width="25" />
                     </a>
+
+                    @if(User.IsInRole("User")){
+                        <a class="nav-link text-dark" asp-controller="Wishlists" asp-action="GetMyWishlist">
+                            <img id="img_cart" alt="logo" src="~/img/wishlist.png" Width="25" />
+                        </a>
+                    }
                     <partial name="_LoginPartial" />
                 </div>
             </div>

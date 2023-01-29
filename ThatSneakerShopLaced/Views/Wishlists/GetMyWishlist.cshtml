@@ -1,0 +1,37 @@
+﻿@model List<Wishlist>
+
+
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <h4 class="card-title">My Wishlist</h4>
+            </div>
+            <div class="table">
+                <table class="table" id="shoe_stock-table">
+                    <thead>
+                        <tr>
+                            <th>Shoe</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var wishlistItem in Model) {
+                            <tr>
+                                <td>@wishlistItem.Shoe.ShoeName</td>
+                                <td>€ @wishlistItem.Shoe.ShoePrice</td>
+                                <td>@wishlistItem.Shoe.Stock</td>
+                                <td>
+                                    <a class="nav-link text-dark" asp-controller="Wishlists" asp-action="Remove" asp-route-id="@wishlistItem.ShoeId">
+                                        <img id="img_remove" alt="icon remove" src="~/img/remove.png" Width="10" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ThatSneakerShopLaced.Data;
 using ThatSneakerShopLaced.Models;
+using ThatSneakerShopLaced.Sessions;
 
 namespace ThatSneakerShopLaced.Controllers
 {
-    public class WishlistsController : Controller
-    {
+    public class WishlistsController : Controller {
         private readonly ApplicationDbContext _context;
 
-        public WishlistsController(ApplicationDbContext context)
-        {
+        public WishlistsController(ApplicationDbContext context) {
             _context = context;
         }
 
         // GET: Wishlists
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             var applicationDbContext = _context.Wishlist.Include(s => s.Shoe).Include(s => s.Customer);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -149,8 +148,7 @@ namespace ThatSneakerShopLaced.Controllers
         // POST: Wishlists/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
+        public async Task<IActionResult> DeleteConfirmed(int id) {
             if (_context.Wishlist == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Wishlist'  is null.");
@@ -169,5 +167,52 @@ namespace ThatSneakerShopLaced.Controllers
         {
           return _context.Wishlist.Any(e => e.WishlistId == id);
         }
+
+        public async Task<IActionResult> Add(int id) {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var shoe = await _context.Shoe.FirstOrDefaultAsync(s => s.ShoeId == id);
+            if (shoe == null) {
+                return NotFound();
+            }
+
+            var existingWishlist = await _context.Wishlist.FirstOrDefaultAsync(w => w.ShoeId == id && w.CustomerId == userId);
+            if (existingWishlist != null) {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var wishlist = new Wishlist {
+                CustomerId = userId,
+                ShoeId = shoe.ShoeId,
+                Shoe = await _context.Shoe.FindAsync(id),
+                Customer = await _context.Users.FindAsync(userId)
+            };
+            _context.Wishlist.Add(wishlist);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        public async Task<IActionResult> GetMyWishlist() {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var wishlist = await _context.Wishlist
+                .Include(w => w.Shoe)
+                .Where(w => w.CustomerId == userId)
+                .ToListAsync();
+            return View(wishlist);
+        }
+        public async Task<IActionResult> Remove(int id) {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var existingWishlist = await _context.Wishlist.FirstOrDefaultAsync(w => w.ShoeId == id && w.CustomerId == userId);
+            if (existingWishlist == null) {
+                return NotFound();
+            }
+
+            _context.Wishlist.Remove(existingWishlist);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("GetMyWishlist");
+        }
+
+
+
     }
 }

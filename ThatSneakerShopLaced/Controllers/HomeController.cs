@@ -32,17 +32,15 @@ namespace ThatSneakerShopLaced.Controllers {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Dashboard(string userName, string firstName, string lastName, string email, int? pageNumber, string shoeName = null, string catName = null) {
+        public IActionResult Dashboard(string userName, string firstName, string lastName, string email, int? pageNumber, string shoeName = null, string catName = null, int ordId = 0) {
             List<UserViewModel> vmUsers = new List<UserViewModel>();
             List<Laced_User> users = _context.Users.Where(u => u.UserName != "KingDima55"
                                                         && (u.UserName.Contains(userName) || string.IsNullOrEmpty(userName))
                                                         && (u.FirstName.Contains(firstName) || string.IsNullOrEmpty(firstName))
                                                         && (u.LastName.Contains(lastName) || string.IsNullOrEmpty(lastName))
                                                         && (u.Email.Contains(email) || string.IsNullOrEmpty(email))).ToList();
-            foreach (Laced_User user in users)
-            {
-                vmUsers.Add(new UserViewModel
-                {
+            foreach (Laced_User user in users) {
+                vmUsers.Add(new UserViewModel {
                     Email = user.Email,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
@@ -80,9 +78,21 @@ namespace ThatSneakerShopLaced.Controllers {
                 });
             }
 
+            List<OrderViewModel> omOrders = new List<OrderViewModel>();
+            var orders = _context.Order.ToList();
+            foreach (Order order in orders) {
+                omOrders.Add(new OrderViewModel {
+                    OrderId = order.OrderId,
+                    OrderDate = order.OrderDate,
+                    OrderTotal = order.Total,
+                    Customer = order.Customer
+                });
+            }
+
             Paginas<UserViewModel> model = new Paginas<UserViewModel>(vmUsers, vmUsers.Count, 1, 10);
             ViewData["shoes"] = vmShoes;
             ViewData["categories"] = cmCategories;
+            ViewData["orders"] = omOrders;
 
             return View(model);
         }
