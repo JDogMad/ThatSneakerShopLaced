@@ -20,8 +20,7 @@ namespace ThatSneakerShopLaced.Controllers {
         public IActionResult Index() {
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
 
-            CartViewModel model = new()
-            {
+            CartViewModel model = new() {
                 CartItems = cart,
                 TotalAmount = cart.Sum(x => x.Quantity * x.Price)
             };

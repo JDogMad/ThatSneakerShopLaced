@@ -1,39 +1,86 @@
 ﻿@model ThatSneakerShopLaced.Models.Stripe.AddStripeCustomer
 
-<form asp-controller="Stripe" asp-action="AddStripeCustomer">
-    <input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" />
 
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input class="form-control" id="email" name="email" value="@Model.Email" />
-    </div>
-    <div class="form-group">
-        <label for="fullName">Name</label>
-        <input class="form-control" id="fullName" name="fullName" value="@ViewData["fullname"]" />
-    </div>
+@{
+    var total = Convert.ToDecimal(TempData["Total"]);
+}
 
-    <div class="form-group">
-        <div class="form-group">
-            <label asp-for="CreditCard.CardNumber">Card Number</label>
-            <input asp-for="CreditCard.CardNumber" class="form-control" />
-            <span asp-validation-for="CreditCard.CardNumber" class="text-danger"></span>
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-6">Payment</h1>
+            @if(total != 0){
+                <h5>Total: €@total</h5>
+            } else {
+                <h5>Total: €@ViewData["Total"]</h5>
+            }
         </div>
-        <div class="form-group">
-            <label asp-for="CreditCard.ExpirationYear">Expiry Year</label>
-            <input asp-for="CreditCard.ExpirationYear" class="form-control" />
-            <span asp-validation-for="CreditCard.ExpirationYear" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="CreditCard.ExpirationMonth">Expiry Month</label>
-            <input asp-for="CreditCard.ExpirationMonth" class="form-control" />
-            <span asp-validation-for="CreditCard.ExpirationMonth" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="CreditCard.Cvc">CVC</label>
-            <input asp-for="CreditCard.Cvc" class="form-control" />
-            <span asp-validation-for="CreditCard.Cvc" class="text-danger"></span>
+    </div> 
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card ">
+                <div class="card-header">
+                    <div class="tab-content">
+                        <div id="credit-card" class="tab-pane fade show active pt-3">
+                            <form asp-controller="Stripe" asp-action="AddStripeCustomer">
+                                <input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" />
+                                <div class="form-group">
+                                    <label for="username"> <h6>Card Owner</h6> </label> 
+                                    <input type="text" name="username" value="@Model.Name" required class="form-control ">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email"> 
+                                        <h6>Email</h6> 
+                                    </label>
+                                    <input type="email" name="email" value="@Model.Email" required class="form-control ">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardNumber">
+                                        <h6>Card number</h6>
+                                    </label>
+                                    <div class="input-group">
+                                        <input asp-for="CreditCard.CardNumber" placeholder="Valid card number" class="form-control" required />
+                                        <span asp-validation-for="CreditCard.CardNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label>
+                                                <span class="hidden-xs">
+                                                    <h6>Expiration Date</h6>
+                                                </span>
+                                            </label>
+                                            <div class="input-group"> 
+                                                <input asp-for="CreditCard.ExpirationMonth" placeholder="MM" class="form-control" required>
+                                                <span asp-validation-for="CreditCard.ExpirationMonth" class="text-danger"></span>
+                                                <input asp-for="CreditCard.ExpirationYear" placeholder="YY" class="form-control" required>
+                                                <span asp-validation-for="CreditCard.ExpirationYear" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group mb-4">
+                                            <label asp-for="CreditCard.Cvc" data-toggle="tooltip" title="Three digit CV code on the back of your card">
+                                                <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
+                                            </label>
+                                            <input asp-for="CreditCard.Cvc" class="form-control" required/>
+                                            <span asp-validation-for="CreditCard.Cvc" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if(ViewData["ErrorMessage"] != null){
+                                    <div class="alert alert-danger" role="alert">
+                                        @ViewData["ErrorMessage"]
+                                    </div>
+                                }
+                                <div class="card-footer"> 
+                                    <button type="submit" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+            </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Add Customer</button>
-</form>
-
