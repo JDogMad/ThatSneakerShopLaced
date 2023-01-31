@@ -8,6 +8,7 @@ using Org.BouncyCastle.Asn1.Ocsp;
 using System.Collections.Generic;
 using System;
 using ThatSneakerShopLaced.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ThatSneakerShopLaced.Controllers {
     public class CartController : Controller {
@@ -17,6 +18,7 @@ namespace ThatSneakerShopLaced.Controllers {
             _context = context;
 
         }
+
         public IActionResult Index() {
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
 
@@ -93,7 +95,7 @@ namespace ThatSneakerShopLaced.Controllers {
             return RedirectToAction("Index");
         }
 
-
+        [Authorize(Roles = "User, Manager, Admin")]
         public IActionResult ShippingInfo() {
             var user = _context.Users.SingleOrDefault(u => u.UserName == User.Identity.Name);
             var model = new UserViewModel {
@@ -107,6 +109,7 @@ namespace ThatSneakerShopLaced.Controllers {
             return View(model);
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         [HttpPost]
         public IActionResult SaveShippingInfo(UserViewModel model) {
             var user = _context.Users.SingleOrDefault(u => u.UserName == User.Identity.Name);

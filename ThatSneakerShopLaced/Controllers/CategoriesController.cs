@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +44,7 @@ namespace ThatSneakerShopLaced.Controllers
             return View(category);
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         // GET: Categories/Create
         public IActionResult Create()
         {
@@ -65,6 +67,7 @@ namespace ThatSneakerShopLaced.Controllers
             return View(category);
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -84,6 +87,7 @@ namespace ThatSneakerShopLaced.Controllers
         // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,Hidden")] Category category)
@@ -117,6 +121,7 @@ namespace ThatSneakerShopLaced.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "Manager, Admin")]
         public async Task<IActionResult> Delete(int? id) {
             var category = _context.Category.Find(id);
             if (category == null) {
@@ -132,6 +137,7 @@ namespace ThatSneakerShopLaced.Controllers
         }
 
         // POST: Categories/Delete/5
+        [Authorize(Roles = "Manager, Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

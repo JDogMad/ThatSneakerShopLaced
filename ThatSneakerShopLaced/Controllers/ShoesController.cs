@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -23,43 +24,37 @@ namespace ThatSneakerShopLaced.Controllers {
             return View(await applicationDbContext.ToListAsync());
         }
 
-            
-
         // GET: Shoes/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Shoe == null)
-            {
+        public async Task<IActionResult> Details(int? id) {
+            if (id == null || _context.Shoe == null) {
                 return NotFound();
             }
 
             var shoe = await _context.Shoe
                 .Include(s => s.Category)
                 .FirstOrDefaultAsync(m => m.ShoeId == id);
-            if (shoe == null)
-            {
+            if (shoe == null) {
                 return NotFound();
             }
 
             return View(shoe);
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         // GET: Shoes/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
             return View();
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         // POST: Shoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShoeId,ShoeName,ShoeDescription,ShoePrice,Stock,Hidden,CategoryId")] Shoe shoe)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("ShoeId,ShoeName,ShoeDescription,ShoePrice,Stock,Hidden,CategoryId")] Shoe shoe){
+            if (ModelState.IsValid){
                 _context.Add(shoe);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -68,17 +63,15 @@ namespace ThatSneakerShopLaced.Controllers {
             return View(shoe);
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         // GET: Shoes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Shoe == null)
-            {
+        public async Task<IActionResult> Edit(int? id) {
+            if (id == null || _context.Shoe == null) {
                 return NotFound();
             }
 
             var shoe = await _context.Shoe.FindAsync(id);
-            if (shoe == null)
-            {
+            if (shoe == null) {
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", shoe.CategoryId);
@@ -88,6 +81,7 @@ namespace ThatSneakerShopLaced.Controllers {
         // POST: Shoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ShoeId,ShoeName,ShoeDescription,ShoePrice,Stock,Hidden,CategoryId")] Shoe shoe){
@@ -96,19 +90,13 @@ namespace ThatSneakerShopLaced.Controllers {
             }
 
             if (ModelState.IsValid) {
-                try
-                {
+                try{
                     _context.Update(shoe);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ShoeExists(shoe.ShoeId))
-                    {
+                }catch (DbUpdateConcurrencyException){
+                    if (!ShoeExists(shoe.ShoeId)){
                         return NotFound();
-                    }
-                    else
-                    {
+                    }else{
                         throw;
                     }
                 }
@@ -119,11 +107,10 @@ namespace ThatSneakerShopLaced.Controllers {
         }
 
         // GET: Shoes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
+        [Authorize(Roles = "Manager, Admin")]
+        public async Task<IActionResult> Delete(int? id){
             var shoes = _context.Shoe.Find(id);
-            if (shoes == null)
-            {
+            if (shoes == null){
                 // Category not found
                 return NotFound();
             }
@@ -138,17 +125,15 @@ namespace ThatSneakerShopLaced.Controllers {
         }
 
         // POST: Shoes/Delete/5
+        [Authorize(Roles = "Manager, Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Shoe == null)
-            {
+        public async Task<IActionResult> DeleteConfirmed(int id){
+            if (_context.Shoe == null){
                 return Problem("Entity set 'ApplicationDbContext.Shoe'  is null.");
             }
             var shoe = await _context.Shoe.FindAsync(id);
-            if (shoe != null)
-            {
+            if (shoe != null){
                 _context.Shoe.Remove(shoe);
             }
             

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,8 @@ using ThatSneakerShopLaced.Data;
 using ThatSneakerShopLaced.Models;
 
 namespace ThatSneakerShopLaced.Controllers {
+
+    [Authorize(Roles = "Manager, Admin")]
     public class OrdersController : Controller {
         private readonly ApplicationDbContext _context;
 

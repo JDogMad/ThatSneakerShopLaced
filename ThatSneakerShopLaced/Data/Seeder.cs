@@ -22,8 +22,6 @@ namespace ThatSneakerShopLaced.Data {
                     );
                     context.SaveChanges();
 
-                   
-
                     Laced_User UserJacqueline = new Laced_User {
                         Email = "jaquelinedoe123@gmail.com",
                         EmailConfirmed = true,
@@ -140,15 +138,17 @@ namespace ThatSneakerShopLaced.Data {
                     context.SaveChanges();
                 }
 
-                //TODO: Dont forget to change pictures because they are ugly
                 if (!context.Shoe.Any()) {
                     context.Shoe.AddRange(
-                        new Shoe { ShoeName = "Triple Pink Dunks", ShoeDescription = "The Nike Dunk Low Triple Pink has a full leather build, which makes use of three distinct shades of pink to complete the look. The base has a light shade of pink, with a slightly contrasting pink overlay.", ShoePrice = 221, Stock = 5, CategoryId = 1, ImageUrl = "https://i.ibb.co/GVjTSBQ/Nike-Dunk-Low-Triple-Pink.jpg" },
-                        new Shoe { ShoeName = "Nike SB Dunk Low Pro", ShoeDescription = "GREEN/METALLIC GOLD-WHITE-LIGHT GUM", ShoePrice = 147, Stock = 1, CategoryId = 2, ImageUrl = "https://i.ibb.co/yQ60bB9/Nike-Sb-Dunk-Low-Pro.jpg" },
-                        new Shoe { ShoeName = "Nike Dunk Low Halloween (2022)", ShoeDescription = "PHANTOM/BLACK-SAFETY ORANGE", ShoePrice = 210, Stock = 5, CategoryId = 3, ImageUrl = "https://i.ibb.co/3rzKzct/Nike-Dunk-Low-Halloween.jpg" },
-                        new Shoe { ShoeName = "Chocolate x Nike SB Dunk Low", ShoeDescription = "This Dunk Low was created in collaboration with West Coast label Chocolate Skateboards, sister company to Girl Skateboards, and was released as the companion to the Zoo York Dunk. The cross detailing on the heel served to commemorate the life of legendary Chocolate team rider Keenan Milton, who passed away in 2002.", ShoePrice = 1875, Stock = 1, CategoryId = 3, ImageUrl = "https://i.ibb.co/23mzjRm/most-expensive-nike-sb-dunks-09.webp" },
-                        new Shoe { ShoeName = "Parra x Nike SB Dunk Low (Friends & Family)", ShoeDescription = "Parra and Nike are no strangers to collaboration, having teamed up on a number of Air Max 1s in the past. In 2019, the duo linked up again, this time working on both a Blazer and Dunk low in all-white, with typical hits of Parra color. The Friends & Family version of the Dunk was never released to the public, thus making it so collectible.", ShoePrice = 3054, Stock = 2, CategoryId = 3, ImageUrl = "https://i.ibb.co/mRjTd4k/most-expensive-dunks-parra-ff-01.webp" },
-                        new Shoe { ShoeName = "Nike SB Dunk Low “Paris”", ShoeDescription = "The most expensive sneaker on this list, the Paris Dunk Low was part of the same pack as Jeff Staple’s NYC Pigeon Dunk above. Rumor has it 202 pairs were produced, each featuring original artwork by Bernard Buffet on the panels along the laces, heel, and toe box.", ShoePrice = 19500, Stock = 1, CategoryId = 3, ImageUrl = "https://i.ibb.co/47pH26B/most-expensive-nike-sb-dunks-17.webp" });
+                        new Shoe { ShoeName = "Air Jordan 13 “Black Flint”", ShoeDescription = "Black/University Red-Flint Grey-White", ShoePrice = 200, Stock = 10, CategoryId = 3, ImageUrl = "https://i.ibb.co/QKLrVDD/j-Air-Black-Flint.webp" },
+                        new Shoe { ShoeName = "Air Jordan 7 “Black Olive”", ShoeDescription = "Black/Cherrywood Red-Neutral Olive-Chutney", ShoePrice = 200, Stock = 9, CategoryId = 1, ImageUrl = "https://i.ibb.co/y5ZxkXS/j-Air-Black-Olive.webp" },
+                        new Shoe { ShoeName = "Air Jordan 5 WMNS “Mars For Her”", ShoeDescription = "Martian Sunrise/Black-Fire Red-Muslin", ShoePrice = 200, Stock = 12, CategoryId = 2, ImageUrl = "https://i.ibb.co/zh9S9hx/j-Air-Mars-For-Her.webp" },
+                        new Shoe { ShoeName = "Air Jordan 4 “Messy Room”", ShoeDescription = "Entitled “Messy Room,” this GS-exclusive Air Jordan 4 is officially inspired by kids’ lack of organization and the disheveled state in which their rooms are often found. Similar to the above-mentioned AJ1, this colorway employs a playful, split design, with light blues comprising the brunt of the construction’s forward half. ", ShoePrice = 140, Stock = 10, CategoryId = 1, ImageUrl = "https://i.ibb.co/wQTrdy5/j-Air-Messy-Room.webp" },
+                        new Shoe { ShoeName = "Air Jordan 9 “Olive Concord”", ShoeDescription = "Black/Bright Concord-Light Olive-Aquatone", ShoePrice = 250, Stock = 2, CategoryId = 3, ImageUrl = "https://i.ibb.co/fGfg6xf/j-Air-Olive-Concord.webp" },
+                        new Shoe { ShoeName = "Air Jordan 1 High OG “True Blue”", ShoeDescription = "True Blue/White-Cement Grey", ShoePrice = 180, Stock = 12, CategoryId = 2, ImageUrl = "https://i.ibb.co/SXRxms3/j-Air-True-Blue.webp" },
+                        new Shoe { ShoeName = "Air Jordan 1 High OG “Washed Pink”", ShoeDescription = "Atmosphere/White-Muslin-Sail", ShoePrice = 180, Stock = 5, CategoryId = 2, ImageUrl = "https://i.ibb.co/q1Jy9Pg/j-Air-Washed-Pink.webp" },
+                        new Shoe { ShoeName = "Air Jordan 1 Low OG “Year of the Rabbit”", ShoeDescription = "SAIL/UNIVERSITY RED-BROWN", ShoePrice = 653, Stock = 2, CategoryId = 3, ImageUrl = "https://i.ibb.co/FWWgwhT/j-Air-Year-Of-The-Rabbit.webp" },
+                        new Shoe { ShoeName = "Air Jordan 1 Low “Panda”", ShoeDescription = "White/Black-White", ShoePrice = 150 , Stock = 7, CategoryId = 1, ImageUrl = "https://i.ibb.co/jD9X485/low-panda.webp" });
                     context.SaveChanges();
                 }
 

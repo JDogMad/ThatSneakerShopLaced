@@ -8,6 +8,7 @@ namespace ThatSneakerShopLaced.Models {
         public string ShoeName { get; set; }
         public string Image { get; set; }
         public int Quantity { get; set; }
+        public int Stock { get; set; }
         public decimal Price { get; set; }
         public decimal Total { 
             get{ 
@@ -23,6 +24,7 @@ namespace ThatSneakerShopLaced.Models {
             Price = shoe.ShoePrice;
             Quantity = 1;
             Image = shoe.ImageUrl;
+            Stock = shoe.Stock;
         }
 
     }

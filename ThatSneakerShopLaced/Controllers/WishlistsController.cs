@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +11,8 @@ using ThatSneakerShopLaced.Data;
 using ThatSneakerShopLaced.Models;
 using ThatSneakerShopLaced.Sessions;
 
-namespace ThatSneakerShopLaced.Controllers
-{
+namespace ThatSneakerShopLaced.Controllers {
+    [Authorize(Roles = "User, Manager, Admin")]
     public class WishlistsController : Controller {
         private readonly ApplicationDbContext _context;
 
@@ -26,10 +27,8 @@ namespace ThatSneakerShopLaced.Controllers
         }
 
         // GET: Wishlists/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Wishlist == null)
-            {
+        public async Task<IActionResult> Details(int? id) {
+            if (id == null || _context.Wishlist == null) {
                 return NotFound();
             }
 
@@ -37,8 +36,7 @@ namespace ThatSneakerShopLaced.Controllers
                 .Include(s => s.Shoe)
                 .Include(c => c.Customer)
                 .FirstOrDefaultAsync(m => m.WishlistId == id);
-            if (wishlist == null)
-            {
+            if (wishlist == null) {
                 return NotFound();
             }
 
@@ -46,8 +44,7 @@ namespace ThatSneakerShopLaced.Controllers
         }
 
         // GET: Wishlists/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             ViewData["Id"] = new SelectList(_context.Users, "UserId", "UserName");
             ViewData["ShoeId"] = new SelectList(_context.Shoe, "ShoeId", "ShoeName");
             return View();
@@ -58,10 +55,8 @@ namespace ThatSneakerShopLaced.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WishlistId,CustomerId,ShoeId,Hidden")] Wishlist wishlist)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("WishlistId,CustomerId,ShoeId,Hidden")] Wishlist wishlist) {
+            if (ModelState.IsValid) {
                 _context.Add(wishlist);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -72,16 +67,13 @@ namespace ThatSneakerShopLaced.Controllers
         }
 
         // GET: Wishlists/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Wishlist == null)
-            {
+        public async Task<IActionResult> Edit(int? id) {
+            if (id == null || _context.Wishlist == null) {
                 return NotFound();
             }
 
             var wishlist = await _context.Wishlist.FindAsync(id);
-            if (wishlist == null)
-            {
+            if (wishlist == null) {
                 return NotFound();
             }
             ViewData["Id"] = new SelectList(_context.Users, "UserId", "UserName", wishlist.CustomerId);

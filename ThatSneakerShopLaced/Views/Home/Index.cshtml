@@ -6,29 +6,129 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<section class="bg-light pt-5 pb-5 shadow-sm">
-    <div class="container">
+<div class="d-flex"> 
+    <ul class="list-group list-group-secondary justify-content-start">
+        <li class="list-group-item px-3 border-0 rounded-3 list-group-item-light mb-2"><a href="#kids-section">Kids</a></li>
+        <li class="list-group-item px-3 border-0 rounded-3 list-group-item-light mb-2"><a href="#women-section">Women</a></li>
+        <li class="list-group-item px-3 border-0 rounded-3 list-group-item-light mb-2"><a href="#men-section">Men</a></li>
+    </ul>
+    <div class="container justify-content-end">
+        <h4 id="kids-section">Kids</h4>
         <div class="row">
-                @foreach(var item in Model){
-                    @if(item != null){
-                        @if(item.Hidden == false){
-                        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-                            <div class="card">
-                                <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" class="card-img-top" alt="@Html.DisplayFor(modelItem => item.ShoeName)" height="210px">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.ShoeName)</h5>
-                                    <p class="card-text mb-4">@Html.DisplayFor(modelItem => item.ShoeDescription)</p>
-                                    <p class="card-text mb-4">@Html.DisplayFor(modelItem => item.ShoePrice)</p>
-                                    <a class="nav-link text-dark" asp-controller="Wishlists" asp-action="Add" asp-route-id="@item.ShoeId">
-                                        <img id="img_cart" alt="logo" src="~/img/wishlist.png" Width="25" />
-                                    </a>
-                                    <a class="btn btn-primary mt-auto align-self-end" asp-controller="Cart" asp-action="Add" asp-route-id="@item.ShoeId">Add to cart</a>
+            @foreach (var item in Model)
+            {
+                @if (item != null && item.Hidden == false && item.CategoryId == 1)
+                {
+                    <div class="col-md-4 mt-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-img-actions">
+                                    <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" class="card-img img-fluid" width="96" height="350" alt="@Html.DisplayFor(modelItem => item.ShoeName)">
                                 </div>
                             </div>
+
+                            <div class="card-body bg-light text-center">
+                                <div class="mb-2">
+                                    <h6 class="font-weight-semibold mb-2">
+                                        <a href="#" class="text-default mb-2" data-abc="true">@Html.DisplayFor(modelItem => item.ShoeName)</a>
+                                    </h6>
+
+                                    <a href="#" class="text-muted" data-abc="true">Kids</a>
+                                </div>
+
+                                <h3 class="mb-0 font-weight-semibold">@Html.DisplayFor(modelItem => item.ShoePrice)</h3>
+
+                                <button type="button" class="btn bg-cart">
+                                    <a class="nav-link text-dark" asp-controller="Wishlists" asp-action="Add" asp-route-id="@item.ShoeId"><img id="img_cart" alt="logo" src="~/img/wishlist.png" Width="25" /></a>
+                                </button>
+
+                                <button type="button" class="btn bg-cart">
+                                    <a class="btn btn-primary mt-auto" asp-controller="Cart" asp-action="Add" asp-route-id="@item.ShoeId">Add to cart</a>
+                                </button>
+                            </div>
                         </div>
-                        }
-                    }
+                    </div>
                 }
+            }
+        </div>
+
+        <h4 id="women-section">Women</h4>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                @if (item != null && item.Hidden == false && item.CategoryId == 2)
+                {
+                    <div class="col-md-4 mt-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-img-actions">
+                                    <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" class="card-img img-fluid" width="96" height="350" alt="@Html.DisplayFor(modelItem => item.ShoeName)">
+                                </div>
+                            </div>
+
+                            <div class="card-body bg-light text-center">
+                                <div class="mb-2">
+                                    <h6 class="font-weight-semibold mb-2">
+                                        <a href="#" class="text-default mb-2" data-abc="true">@Html.DisplayFor(modelItem => item.ShoeName)</a>
+                                    </h6>
+
+                                    <a href="#" class="text-muted" data-abc="true">Women</a>
+                                </div>
+
+                                <h3 class="mb-0 font-weight-semibold">@Html.DisplayFor(modelItem => item.ShoePrice)</h3>
+
+                                <button type="button" class="btn bg-cart">
+                                    <a class="nav-link text-dark" asp-controller="Wishlists" asp-action="Add" asp-route-id="@item.ShoeId"><img id="img_cart" alt="logo" src="~/img/wishlist.png" Width="25" /></a>
+                                </button>
+
+                                <button type="button" class="btn bg-cart">
+                                    <a class="btn btn-primary mt-auto" asp-controller="Cart" asp-action="Add" asp-route-id="@item.ShoeId">Add to cart</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <h4 id="men-section">Men</h4>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                @if (item != null && item.Hidden == false && item.CategoryId == 3)
+                {
+                    <div class="col-md-4 mt-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-img-actions">
+                                    <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" class="card-img img-fluid" width="96" height="350" alt="@Html.DisplayFor(modelItem => item.ShoeName)">
+                                </div>
+                            </div>
+
+                            <div class="card-body bg-light text-center">
+                                <div class="mb-2">
+                                    <h6 class="font-weight-semibold mb-2">
+                                        <a href="#" class="text-default mb-2" data-abc="true">@Html.DisplayFor(modelItem => item.ShoeName)</a>
+                                    </h6>
+
+                                    <a href="#" class="text-muted" data-abc="true">Men</a>
+                                </div>
+
+                                <h3 class="mb-0 font-weight-semibold">@Html.DisplayFor(modelItem => item.ShoePrice)</h3>
+
+                                <button type="button" class="btn bg-cart">
+                                    <a class="nav-link text-dark" asp-controller="Wishlists" asp-action="Add" asp-route-id="@item.ShoeId"><img id="img_cart" alt="logo" src="~/img/wishlist.png" Width="25" /></a>
+                                </button>
+
+                                <button type="button" class="btn bg-cart">
+                                    <a class="btn btn-primary mt-auto" asp-controller="Cart" asp-action="Add" asp-route-id="@item.ShoeId">Add to cart</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
-</section>
+
+</div>

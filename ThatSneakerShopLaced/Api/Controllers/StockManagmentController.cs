@@ -10,7 +10,7 @@ using ThatSneakerShopLaced.Models.ViewModels;
 namespace ThatSneakerShopLaced.Api.Controllers
 {
 
-    [Authorize(Roles = "Manager")]
+    [Authorize(Roles = "Manager, Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class StockManagmentController : Controller

@@ -241,4 +241,7 @@ input:focus, textarea:focus {
         background: #6520ff;
     }
 
-
+li a {
+    color: inherit;
+    text-decoration: none;
+}

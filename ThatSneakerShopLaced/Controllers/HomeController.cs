@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -32,6 +33,7 @@ namespace ThatSneakerShopLaced.Controllers {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         public IActionResult Dashboard(string userName, string firstName, string lastName, string email, int? pageNumber, string shoeName = null, string catName = null, int ordId = 0) {
             List<UserViewModel> vmUsers = new List<UserViewModel>();
             List<Laced_User> users = _context.Users.Where(u => u.UserName != "KingDima55"

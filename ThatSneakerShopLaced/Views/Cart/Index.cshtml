@@ -21,11 +21,15 @@
                                     <div class="d-flex justify-content-between align-items-center mb-5">
                                         <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
                                     </div>
-                                    @{ decimal total = 0;}
+                                        @{
+                                            decimal total = 0;
+                                            int stock = 0;
+                                            int quantity = 0;
+                                        }
                                     <hr class="my-4">
                                     @foreach(var item in Model.CartItems){
-                                            total += item.Price * item.Quantity;
-                                            <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                        total += item.Price * item.Quantity;
+                                        <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                             <div class="row mb-4 d-flex justify-content-start align-items-center">
                                                 <div class="col-md-2 col-lg-2 col-xl-2">
                                                     <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.Image)"
@@ -36,13 +40,36 @@
                                                 </div>
                                             </div>
                                             <div class="col-mb-5 d-flex justify-content-center align-items-center">
-                                                <a class="nav-link text-dark" asp-controller="Cart" asp-action="Add" asp-route-id="@item.ShoeId">
-                                                    <img id="img_increase" alt="icon increase" src="~/img/add_item.png" Width="15" />
-                                                </a>
-                                                <h6 class="mb-0">@item.Quantity</h6>
-                                                <a class="nav-link text-dark" asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ShoeId">
-                                                    <img id="img_decrease" alt="icon decrease" src="~/img/minus.png" Width="15" />
-                                                </a>
+                                                    @if(User.IsInRole("User")){
+                                                        @if (item.Quantity <= item.Stock){
+                                                            stock = item.Stock;
+                                                            quantity = item.Quantity;
+                                                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Add" asp-route-id="@item.ShoeId">
+                                                                <img id="img_increase" alt="icon increase" src="~/img/add_item.png" Width="15" />
+                                                            </a>
+                                                            <h6 class="mb-0">@item.Quantity</h6>
+                                                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ShoeId">
+                                                                <img id="img_decrease" alt="icon decrease" src="~/img/minus.png" Width="15" />
+                                                            </a>
+                                                        } else {
+                                                            <div class="alert alert-danger" role="alert">
+                                                                Not in stock
+                                                            </div>
+                                                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ShoeId">
+                                                                <img id="img_decrease" alt="icon decrease" src="~/img/minus.png" Width="15" />
+                                                            </a>
+
+                                                        }   
+                                                    } else {
+                                                        <a class="nav-link text-dark" asp-controller="Cart" asp-action="Add" asp-route-id="@item.ShoeId">
+                                                            <img id="img_increase" alt="icon increase" src="~/img/add_item.png" Width="15" />
+                                                        </a>
+                                                        <h6 class="mb-0">@item.Quantity</h6>
+                                                        <a class="nav-link text-dark" asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ShoeId">
+                                                            <img id="img_decrease" alt="icon decrease" src="~/img/minus.png" Width="15" />
+                                                        </a>
+                                                    }
+                                                                                                 
                                             </div>
                                             <div class="col-mb-5">
                                                 <h6 class="mb-0" style="margin-right: 10px;">@item.Price.ToString("C2")</h6>
@@ -96,10 +123,14 @@
                                             TempData["Total"] = totalShoes;
                                         }
 
+                                    
                                     @if (SignInManager.IsSignedIn(User)) {
-                                        <button type="button" class="btn btn-dark btn-block btn-lg"data-mdb-ripple-color="dark">
+                                        <button id="checkout-btn" type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">
                                             <a style="color:white; text-decoration:none;" asp-controller="Cart" asp-action="ShippingInfo" >Continue to checkout</a>
                                         </button>
+                                        <div class="alert alert-danger" role="alert" id="stock_error" style="display: none">
+                                                Not in stock. Please remove items from cart to continue.
+                                        </div>
                                     } else {
                                         <h6 class="mb-0">
                                             <a class="text-body" asp-area="Identity" asp-page="/Account/Register">
@@ -108,6 +139,19 @@
                                             </a>
                                         </h6>
                                     }
+                                    
+                                        <script>
+                                            function hideCheckoutButton() {
+                                                if (@quantity <= @stock) {
+                                                    document.getElementById("checkout-btn").style.display = "block";
+                                                    document.getElementById("stock_error").style.display = "none";
+                                                } else {
+                                                    document.getElementById("checkout-btn").style.display = "none";
+                                                    document.getElementById("stock_error").style.display = "block";
+                                                }
+                                            }
+                                            hideCheckoutButton();
+                                        </script>
                                 </div>
                             </div>
                         </div>
@@ -128,3 +172,14 @@
         </small>
     </div>
 }
+
+@*<script>
+    function hideCheckoutButton() {
+        if (document.getElementById("checkout-btn")) {
+            document.getElementById("checkout-btn").style.display = "none";
+            document.getElementById("stock_error").style.display = "block";
+        }
+    }
+    window.addEventListener("load", hideCheckoutButton);
+</script>*@
+

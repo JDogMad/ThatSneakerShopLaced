@@ -40,10 +40,11 @@
                     <td>${shoe.shoeName}</td>
                     <td>€ ${shoe.shoePrice}</td>
                     <td>${shoe.stock}</td>
-                    <td><button class='order-more'> Order more</button></td>
+                    <td><button class='btn btn-primary order-more' onclick="location.href='/Cart/Add/${shoe.shoeId}'"> Add to cart</button></td>
                 </tr>`;
             });
             table.innerHTML = rows;
         });
 </script>
+
 

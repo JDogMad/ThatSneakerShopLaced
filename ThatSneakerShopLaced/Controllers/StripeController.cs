@@ -1,4 +1,5 @@
 ﻿using MailKit.Search;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Stripe;
@@ -10,6 +11,7 @@ using ThatSneakerShopLaced.Models.Stripe;
 using ThatSneakerShopLaced.Models.ViewModels;
 
 namespace ThatSneakerShopLaced.Controllers {
+    [Authorize(Roles = "User, Manager, Admin")]
     [Route("api/[controller]")]
     public class StripeController : Controller {
         private readonly IStripeAppService _stripeService;
