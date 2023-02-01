@@ -109,7 +109,7 @@ namespace ThatSneakerShopLaced.Controllers {
             return View(model);
         }
 
-        [Authorize(Roles = "Manager, Admin")]
+        [Authorize(Roles = "User, Manager, Admin")]
         [HttpPost]
         public IActionResult SaveShippingInfo(UserViewModel model) {
             var user = _context.Users.SingleOrDefault(u => u.UserName == User.Identity.Name);
