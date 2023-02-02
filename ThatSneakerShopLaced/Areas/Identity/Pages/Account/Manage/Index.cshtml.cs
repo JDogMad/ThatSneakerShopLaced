@@ -8,6 +8,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ThatSneakerShopLaced.Areas.Identity.Data;
 
@@ -17,13 +18,14 @@ namespace ThatSneakerShopLaced.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<Laced_User> _userManager;
         private readonly SignInManager<Laced_User> _signInManager;
+        private readonly IViewLocalizer _localizer;
 
         public IndexModel(
             UserManager<Laced_User> userManager,
-            SignInManager<Laced_User> signInManager)
-        {
+            SignInManager<Laced_User> signInManager, IViewLocalizer localizer) {
             _userManager = userManager;
             _signInManager = signInManager;
+            _localizer = localizer;
         }
 
         /// <summary>
