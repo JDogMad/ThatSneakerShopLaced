@@ -16,18 +16,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ThatSneakerShopLaced.Areas.Identity.Data;
 using System.Diagnostics;
+using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Mvc.Localization;
 
-namespace ThatSneakerShopLaced.Areas.Identity.Pages.Account
-{
-    public class LoginModel : PageModel
-    {
+namespace ThatSneakerShopLaced.Areas.Identity.Pages.Account {
+    public class LoginModel : PageModel {
         private readonly SignInManager<Laced_User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IViewLocalizer _localizer;
 
-        public LoginModel(SignInManager<Laced_User> signInManager, ILogger<LoginModel> logger)
-        {
+        public LoginModel(SignInManager<Laced_User> signInManager, ILogger<LoginModel> logger, IViewLocalizer localizer) {
             _signInManager = signInManager;
             _logger = logger;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -73,14 +74,6 @@ namespace ThatSneakerShopLaced.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            //[Required]
-            //[EmailAddress]
-            //public string Email { get; set; }
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
@@ -119,7 +112,6 @@ namespace ThatSneakerShopLaced.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded) {
                     _logger.LogInformation("User logged in.");
-                    //return LocalRedirect(returnUrl);
                     return RedirectToAction("Index", "Home");
                 } else {
                     _logger.LogError("Error with login: " + result.ToString());

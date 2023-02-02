@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
@@ -28,20 +29,21 @@ namespace ThatSneakerShopLaced.Areas.Identity.Pages.Account {
         private readonly IUserEmailStore<Laced_User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IViewLocalizer _localizer;
 
         public RegisterModel(
             UserManager<Laced_User> userManager,
             IUserStore<Laced_User> userStore,
             SignInManager<Laced_User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
-        {
+            IEmailSender emailSender, IViewLocalizer localizer) {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _localizer = localizer;
         }
 
         /// <summary>

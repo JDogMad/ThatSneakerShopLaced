@@ -117,28 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Available" xml:space="preserve">
-    <value>Available</value>
+  <data name="A user with this e-mail address already exists." xml:space="preserve">
+    <value>Er bestaat al een gebruiker met dit e-mailadres.</value>
   </data>
-  <data name="Category" xml:space="preserve">
-    <value>Category</value>
+  <data name="A user with this username already exists" xml:space="preserve">
+    <value>Er bestaat al een gebruiker met deze gebruikersnaam</value>
   </data>
-  <data name="CategoryId" xml:space="preserve">
-    <value>CategoryId</value>
+  <data name="clicking here" xml:space="preserve">
+    <value>door hier te klikken</value>
   </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description</value>
+  <data name="Confirm your email" xml:space="preserve">
+    <value>Bevestig uw e-mail</value>
   </data>
-  <data name="ImageUrl" xml:space="preserve">
-    <value>ImageUrl</value>
+  <data name="Create a new account." xml:space="preserve">
+    <value />
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
+  <data name="Passwords moust have ate least one numeric ('0'-'9')" xml:space="preserve">
+    <value>Wachtwoorden moeten ten minste één cijfer ('0'-'9') bevatten.</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Price</value>
+  <data name="Passwords must have at least one lowercase ('a'-'z')" xml:space="preserve">
+    <value>Wachtwoorden moeten ten minste één kleine letter bevatten ('a'-'z')</value>
   </data>
-  <data name="Stock" xml:space="preserve">
-    <value>Stock</value>
+  <data name="Passwords must have at least one non alphanumeric character." xml:space="preserve">
+    <value>Wachtwoorden moeten ten minste één niet-alfanumeriek teken bevatten.</value>
+  </data>
+  <data name="Passwords must have at least one uppercase ('A'-'Z')" xml:space="preserve">
+    <value>Wachtwoorden moeten ten minste één hoofdletter bevatten ('A'-'Z')</value>
+  </data>
+  <data name="Please confirm your account by" xml:space="preserve">
+    <value>Bevestig uw account door</value>
   </data>
 </root>

@@ -23,6 +23,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
     <PackageReference Include="SendGrid" Version="9.28.1" />
     <PackageReference Include="Stripe.net" Version="41.5.0" />
@@ -33,7 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Localizing\Views\Shoes\" />
+    <Folder Include="Resources\Areas\Identity\Pages\Account\Manage\" />
+    <Folder Include="Resources\Models\" />
+    <Folder Include="Resources\Views\" />
   </ItemGroup>
 
 </Project>

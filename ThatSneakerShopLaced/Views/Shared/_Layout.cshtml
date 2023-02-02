@@ -52,7 +52,7 @@
                             </li>
                         }
                     </ul>
-                    <a class="nav-link text-dark" asp-controller="Cart">
+                    <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">
                         <img id="img_cart" alt="logo" src="~/img/shopping-cart.png" Width="25" />
                     </a>
 
@@ -62,6 +62,15 @@
                         </a>
                     }
                     <partial name="_LoginPartial" />
+
+                    <form method="post" action="Language/SetLanguage">
+                        <select id="language" name="culture">
+                            <option value="en-US">English</option>
+                            <option value="fr-FR">French</option>
+                            <option value="nl-NL">Dutch</option>
+                        </select>
+                        <button type="submit">Save</button>
+                    </form>
                 </div>
             </div>
         </nav>

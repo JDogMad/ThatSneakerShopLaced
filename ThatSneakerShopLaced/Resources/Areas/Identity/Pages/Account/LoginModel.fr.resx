@@ -117,28 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Available" xml:space="preserve">
-    <value>Beschikbaar</value>
+  <data name="Invalid login attempt." xml:space="preserve">
+    <value>Tentative de connexion invalide.</value>
   </data>
-  <data name="Category" xml:space="preserve">
-    <value>Categorie</value>
-  </data>
-  <data name="CategoryId" xml:space="preserve">
-    <value>CategorieId</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Beschrijving</value>
-  </data>
-  <data name="ImageUrl" xml:space="preserve">
-    <value>ImageUrl</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Naam</value>
-  </data>
-  <data name="Price" xml:space="preserve">
-    <value>Prijs</value>
-  </data>
-  <data name="Stock" xml:space="preserve">
-    <value>Stock</value>
+  <data name="Sorry, your account has been blocked.  Get in contact with us if you want to be allowed in again." xml:space="preserve">
+    <value>Désolé, votre compte a été bloqué.  Prenez contact avec nous si vous souhaitez être à nouveau autorisé à entrer.</value>
   </data>
 </root>

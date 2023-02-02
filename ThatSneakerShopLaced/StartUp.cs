@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Stripe;
+using System.Globalization;
 using ThatSneakerShopLaced.Application;
 using ThatSneakerShopLaced.Areas.Identity.Data;
 using ThatSneakerShopLaced.Contracts;
@@ -33,7 +36,20 @@ namespace ThatSneakerShopLaced{
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Add Localization
-            services.AddLocalization(option => option.ResourcesPath = "Localizing");
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.Configure<RequestLocalizationOptions>( options => {
+                var supportedCultures = new[] {
+                    new CultureInfo("fr-FR"),
+                    new CultureInfo("nl-NL"),
+                    new CultureInfo("en-US")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("en-EN");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+
+                options.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());
+            });
 
             // Add Api
             services.AddSwaggerGen(c => {
@@ -41,7 +57,6 @@ namespace ThatSneakerShopLaced{
             });
             services.AddHttpClient();
 
-            //services.AddTransient<IStripeAppService, StripeAppService>();
             services.AddStripeInfrastructure(Configuration);
 
             services.AddControllersWithViews();
@@ -69,12 +84,10 @@ namespace ThatSneakerShopLaced{
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseRequestLocalization();
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseSession();
 
             app.UseEndpoints(endpoints =>{
@@ -83,8 +96,8 @@ namespace ThatSneakerShopLaced{
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            app.UseMiddleware<LacedMiddleware>();
 
+            app.UseMiddleware<LacedMiddleware>();
 
             // Middleware for the Swagger Api
             app.UseSwagger();
