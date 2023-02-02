@@ -83,6 +83,8 @@ namespace ThatSneakerShopLaced{
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            app.UseMiddleware<LacedMiddleware>();
+
 
             // Middleware for the Swagger Api
             app.UseSwagger();
