@@ -1,4 +1,6 @@
 ﻿@model ThatSneakerShopLaced.Models.Stripe.AddStripeCustomer
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 
 @{
@@ -8,7 +10,7 @@
 <div class="container py-5">
     <div class="row mb-4">
         <div class="col-lg-8 mx-auto text-center">
-            <h1 class="display-6">Payment</h1>
+            <h1 class="display-6"> @localizer["Payment"]</h1>
             @if(total != 0){
                 <h5>Total: €@total</h5>
             } else {
@@ -25,21 +27,21 @@
                             <form asp-controller="Stripe" asp-action="AddStripeCustomer">
                                 <input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" />
                                 <div class="form-group">
-                                    <label for="username"> <h6>Card Owner</h6> </label> 
+                                    <label for="username"> <h6>@localizer["Card Owner"]</h6> </label>
                                     <input type="text" name="username" value="@Model.Name" required class="form-control ">
                                 </div>
                                 <div class="form-group">
                                     <label for="email"> 
-                                        <h6>Email</h6> 
+                                        <h6>@localizer["Email"]</h6>
                                     </label>
                                     <input type="email" name="email" value="@Model.Email" required class="form-control ">
                                 </div>
                                 <div class="form-group">
                                     <label for="cardNumber">
-                                        <h6>Card number</h6>
+                                        <h6>@localizer["Card number"]</h6>
                                     </label>
                                     <div class="input-group">
-                                        <input asp-for="CreditCard.CardNumber" placeholder="Valid card number" class="form-control" required />
+                                        <input asp-for="CreditCard.CardNumber" placeholder="@localizer["Valid card number"]" class="form-control" required />
                                         <span asp-validation-for="CreditCard.CardNumber" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -48,7 +50,7 @@
                                         <div class="form-group">
                                             <label>
                                                 <span class="hidden-xs">
-                                                    <h6>Expiration Date</h6>
+                                                    <h6>@localizer["Expiration Date"]</h6>
                                                 </span>
                                             </label>
                                             <div class="input-group"> 
@@ -61,7 +63,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group mb-4">
-                                            <label asp-for="CreditCard.Cvc" data-toggle="tooltip" title="Three digit CV code on the back of your card">
+                                            <label asp-for="CreditCard.Cvc" data-toggle="tooltip" title="@localizer["Three digit CV code on the back of your card"]">
                                                 <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
                                             </label>
                                             <input asp-for="CreditCard.Cvc" class="form-control" required/>

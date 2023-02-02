@@ -35,7 +35,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\Models\" />
-    <Folder Include="Resources\Views\" />
   </ItemGroup>
 
 </Project>

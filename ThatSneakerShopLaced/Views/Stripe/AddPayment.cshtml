@@ -1,4 +1,7 @@
-﻿@if (ViewData["ErrorMessage"] != null) {
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@if (ViewData["ErrorMessage"] != null) {
     <div class="alert alert-danger" role="alert">
         @ViewData["ErrorMessage"]
     </div>
@@ -12,10 +15,10 @@
 
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <div>
-                                <h5 class="mb-0">INVOICE <span class="text-primary font-weight-bold">#@ViewData["Uuid"]</span></h5>
+                                <h5 class="mb-0">@localizer["invoice"] <span class="text-primary font-weight-bold">#@ViewData["Uuid"]</span></h5>
                             </div>
                             <div class="text-end">
-                                <p class="mb-0">Expected Arrival <span>@ViewData["Shipping"]</span></p>
+                                <p class="mb-0"> @localizer["Expected Arrival"] <span>@ViewData["Shipping"]</span></p>
                             </div>
                         </div>
 
@@ -31,36 +34,36 @@
                                 <span><img alt="order" src="~/img/order-processed.png" Width="50" /></span>
                                 <i class="fas fa-clipboard-list fa-3x me-lg-4 mb-3 mb-lg-0"></i>
                                 <div>
-                                    <p class="fw-bold mb-1">Order</p>
-                                    <p class="fw-bold mb-0">Processed</p>
+                                    <p class="fw-bold mb-1">@localizer["Order"]</p>
+                                    <p class="fw-bold mb-0">@localizer["Processed"]</p>
                                 </div>
                             </div>
                             <div class="d-lg-flex align-items-center">
                                 <span><img alt="order" src="~/img/order.png" Width="50" /></span>
                                 <div>
-                                    <p class="fw-bold mb-1">Order</p>
-                                    <p class="fw-bold mb-0">Shipped</p>
+                                    <p class="fw-bold mb-1">@localizer["Order"]</p>
+                                    <p class="fw-bold mb-0">@localizer["Shipped"]</p>
                                 </div>
                             </div>
                             <div class="d-lg-flex align-items-center">
                                 <span><img alt="order" src="~/img/delivery-truck.png" Width="50" /></span>
                                 <div>
-                                    <p class="fw-bold mb-1">Order</p>
-                                    <p class="fw-bold mb-0">En Route</p>
+                                    <p class="fw-bold mb-1">@localizer["Order"]</p>
+                                    <p class="fw-bold mb-0">@localizer["En Route"]</p>
                                 </div>
                             </div>
                             <div class="d-lg-flex align-items-center">
                                 <span><img alt="order" src="~/img/home.png" Width="50" /></span>
                                 <div>
-                                    <p class="fw-bold mb-1">Order</p>
-                                    <p class="fw-bold mb-0">Arrived</p>
+                                    <p class="fw-bold mb-1">@localizer["Order"]</p>
+                                    <p class="fw-bold mb-0">@localizer["Arrived"]</p>
                                 </div>
                             </div>
                         </div>
 
                         <form asp-controller="Stripe" asp-action="AddStripePayment">
                             <div class="card-footer">
-                                <button type="submit" class="subscribe btn btn-primary btn-block shadow-sm"> Return to the homepage </button>
+                                <button type="submit" class="subscribe btn btn-primary btn-block shadow-sm">  @localizer["Return to the homepage"]</button>
                             </div>
                         </form>
                     </div>

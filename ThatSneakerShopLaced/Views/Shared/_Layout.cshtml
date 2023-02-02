@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.ViewFeatures
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,12 +16,12 @@
     <header>
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a asp-controller="Users" asp-action="Index">Users</a>
-            <a asp-controller="Shoes" asp-action="Index">Shoes</a>
-            <a asp-controller="Categories" asp-action="Index">Categories</a>
-            <a asp-controller="Wishlists" asp-action="Index">Wishlists</a>
-            <a asp-controller="Payments" asp-action="Index">Payments</a>
-            <a asp-controller="Orders" asp-action="Index">Orders</a>
+            <a asp-controller="Users" asp-action="Index">@localizer["Users"]</a>
+            <a asp-controller="Shoes" asp-action="Index">@localizer["Shoes"]</a>
+            <a asp-controller="Categories" asp-action="Index">@localizer["Categories"]</a>
+            <a asp-controller="Wishlists" asp-action="Index">@localizer["Whislists"]</a>
+            <a asp-controller="Payments" asp-action="Index">@localizer["Payments"]</a>
+            <a asp-controller="Orders" asp-action="Index">@localizer["Orders"]</a>
         </div>
 
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -43,12 +44,12 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@localizer["Home"]</a>
                         </li>
 
                         @if(User.IsInRole("Admin") || User.IsInRole("Manager")){
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Dashboard">@localizer["Dashboard"]</a>
                             </li>
                         }
                     </ul>
@@ -65,9 +66,9 @@
 
                     <form method="post" action="Language/SetLanguage">
                         <select id="language" name="culture">
-                            <option value="en-US">English</option>
-                            <option value="fr-FR">French</option>
-                            <option value="nl-NL">Dutch</option>
+                            <option value="en-US">@localizer["English"]</option>
+                            <option value="fr-FR">@localizer["French"]</option>
+                            <option value="nl-NL">@localizer["Dutch"]</option>
                         </select>
                         <button type="submit">Save</button>
                     </form>

@@ -1,46 +1,48 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
 <div class="container-fluid px-1 py-5 mx-auto">
     <div class="row d-flex justify-content-center">
         <div class="col-xl-5 col-lg-6 col-md-7 col-5 text-center">
             <h3>Shipping info</h3>
-            <p class="blue-text">Please check this information.</p>
+            <p class="blue-text">@localizer["Please check this information."]</p>
             <div class="card" id="shipping-info">
                 <form class="form-card" method="post" action="/Cart/SaveShippingInfo">
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex"> 
-                            <label class="form-control-label px-3" for="firstName">First name<span class="text-danger"> *</span></label> 
-                            <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" value="@Model.FirstName" required> 
+                            <label class="form-control-label px-3" for="firstName">@localizer["First name"]<span class="text-danger"> *</span></label>
+                            <input type="text" id="firstName" name="firstName" placeholder=" @localizer["Enter your first name"]" value="@Model.FirstName" required>
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex"> 
-                            <label class="form-control-label px-3" for="lastName">Last name<span class="text-danger"> *</span></label> 
-                            <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" value="@Model.LastName" required> 
+                            <label class="form-control-label px-3" for="lastName">@localizer["Last name"]<span class="text-danger"> *</span></label>
+                            <input type="text" id="lastName" name="lastName" placeholder="@localizer["Enter your last name"]" value="@Model.LastName" required>
                         </div>
                     </div>
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex"> 
-                            <label class="form-control-label px-3" for="address">Adress <span class="text-danger"> *</span></label> 
+                            <label class="form-control-label px-3" for="address">@localizer["Adress"] <span class="text-danger"> *</span></label>
                             <input type="text" id="address" name="address" value="@Model.Address" required>
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex"> 
-                            <label class="form-control-label px-3" for="city">City<span class="text-danger"> *</span></label> 
+                            <label class="form-control-label px-3" for="city">@localizer["City"]<span class="text-danger"> *</span></label>
                             <input type="text" id="city" name="city" placeholder="" value="@Model.City" required>
                         </div>
                     </div>
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex"> 
-                            <label class="form-control-label px-3" for="postalCode">Postal Code<span class="text-danger"> *</span></label>
+                            <label class="form-control-label px-3" for="postalCode">@localizer["Postal code"]<span class="text-danger"> *</span></label>
                             <input type="text" id="postalCode" name="postalCode" placeholder="" value="@Model.PostalCode"required>
                         </div>
                     </div>
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex"> 
-                            <label class="form-control-label px-3" for="country">Country<span class="text-danger"> *</span></label> 
+                            <label class="form-control-label px-3" for="country">@localizer["Country"]<span class="text-danger"> *</span></label>
                             <input type="text" id="country" name="country" placeholder="" value="@Model.Country" required>
                         </div>
                     </div>
                     <div class="row justify-content-end">
                         <div class="form-group col-sm-6"> 
-                            <button type="submit" class="btn-block btn-primary" id="btn-shipping">Next step</button> 
+                            <button type="submit" class="btn-block btn-primary" id="btn-shipping">@localizer["Next step"]</button>
                         </div>
                     </div>
                 </form>

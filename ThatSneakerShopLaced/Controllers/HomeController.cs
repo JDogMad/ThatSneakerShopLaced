@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -12,9 +13,11 @@ using ThatSneakerShopLaced.Models.ViewModels;
 
 namespace ThatSneakerShopLaced.Controllers {
     public class HomeController : LacedController {
+        private readonly IViewLocalizer _localizer;
 
-        public HomeController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<LacedController> logger)
+        public HomeController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<LacedController> logger, IViewLocalizer localizer)
             : base(context, httpContextAccessor, logger) {
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> Index() {

@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<ThatSneakerShopLaced.Models.Shoe>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -8,12 +11,12 @@
 
 <div class="d-flex"> 
     <ul class="list-group list-group-secondary justify-content-start">
-        <li class="list-group-item px-3 border-0 rounded-3 list-group-item-light mb-2"><a href="#kids-section">Kids</a></li>
-        <li class="list-group-item px-3 border-0 rounded-3 list-group-item-light mb-2"><a href="#women-section">Women</a></li>
-        <li class="list-group-item px-3 border-0 rounded-3 list-group-item-light mb-2"><a href="#men-section">Men</a></li>
+        <li class="list-group-item px-3 border-0 rounded-3 list-group-item-light mb-2"><a href="#kids-section">@localizer["Kids"]</a></li>
+        <li class="list-group-item px-3 border-0 rounded-3 list-group-item-light mb-2"><a href="#women-section">@localizer["Women"]</a></li>
+        <li class="list-group-item px-3 border-0 rounded-3 list-group-item-light mb-2"><a href="#men-section">@localizer["Men"]</a></li>
     </ul>
     <div class="container justify-content-end">
-        <h4 id="kids-section">Kids</h4>
+        <h4 id="kids-section">@localizer["Kids"]</h4>
         <div class="row">
             @foreach (var item in Model)
             {
@@ -52,7 +55,7 @@
             }
         </div>
 
-        <h4 id="women-section">Women</h4>
+        <h4 id="women-section">@localizer["Women"]</h4>
         <div class="row">
             @foreach (var item in Model)
             {
@@ -91,7 +94,7 @@
             }
         </div>
 
-        <h4 id="men-section">Men</h4>
+        <h4 id="men-section">@localizer["Men"]</h4>
         <div class="row">
             @foreach (var item in Model)
             {
@@ -121,7 +124,7 @@
                                 </button>
 
                                 <button type="button" class="btn bg-cart">
-                                    <a class="btn btn-primary mt-auto" asp-controller="Cart" asp-action="Add" asp-route-id="@item.ShoeId">Add to cart</a>
+                                    <a class="btn btn-primary mt-auto" asp-controller="Cart" asp-action="Add" asp-route-id="@item.ShoeId">@localizer["Add to cart"]</a>
                                 </button>
                             </div>
                         </div>

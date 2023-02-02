@@ -4,6 +4,8 @@
 @inject UserManager<Laced_User> UserManager
 @model Paginas<ThatSneakerShopLaced.Models.ViewModels.UserViewModel>
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{}
 
 @if(User.IsInRole("Admin")){
@@ -14,18 +16,18 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h4 class="card-title">Shoes</h4>
+                                <h4 class="card-title">@localizer["Shoes"]</h4>
                                 <button type="button" class="btn btn-light">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Shoes" asp-action="Index">See more</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Shoes" asp-action="Index">@localizer["See more"]</a>
                                 </button>
                             </div>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                          <th>Shoe</th>
-                                          <th>Price</th>
-                                          <th>Stock</th>
+                                          <th>@localizer["Shoe"]</th>
+                                          <th>@localizer["Price"]</th>
+                                          <th>@localizer["Stock"]</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -52,17 +54,17 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h4 class="card-title">Categories</h4>
+                                <h4 class="card-title">@localizer["Categories"]</h4>
                                 <button type="button" class="btn btn-light">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">See more</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">@localizer["See more"]</a>
                                 </button>
                             </div>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Available</th>
+                                            <th>@localizer["Name"]</th>
+                                            <th>@localizer["Available"]</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -90,20 +92,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h4 class="card-title">Users</h4>
+                                <h4 class="card-title">@localizer["Users"]</h4>
                                 <button type="button" class="btn btn-light">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">See more</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">@localizer["See more"]</a>
                                 </button>
                             </div>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Username</th>
-                                            <th>First name</th>
-                                            <th>Last name</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
+                                            <th>@localizer["Username"]</th>
+                                            <th>@localizer["First name"]</th>
+                                            <th>@localizer["Last name"]</th>
+                                            <th>@localizer["Email"]</th>
+                                            <th>@localizer["Role"]</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -149,18 +151,18 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h4 class="card-title">Shoes</h4>
+                                <h4 class="card-title">@localizer["Shoes"]</h4>
                                 <button type="button" class="btn btn-light">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="StockManagment" asp-action="Index">See more</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="StockManagment" asp-action="Index">@localizer["See more"]</a>
                                 </button>
                             </div>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Shoe</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
+                                            <th>@localizer["Shoe"]</th>
+                                            <th>@localizer["Price"]</th>
+                                            <th>@localizer["Stock"]</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -187,17 +189,17 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h4 class="card-title">Categories</h4>
+                                <h4 class="card-title">@localizer["Categories"]</h4>
                                 <button type="button" class="btn btn-light">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">See more</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">@localizer["See more"]</a>
                                 </button>
                             </div>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Available</th>
+                                            <th>@localizer["Name"]</th>
+                                            <th>@localizer["Available"]</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -224,7 +226,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <h4 class="card-title">Orders</h4>
+                                    <h4 class="card-title">@localizer["Orders"]</h4>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table">
@@ -234,11 +236,11 @@
                                         } else {
                                             <thead>
                                                 <tr>
-                                                    <th>OrderId</th>
-                                                    <th>Order date</th>
-                                                    <th>Total</th>
-                                                    <th>Customer</th>
-                                                    <th>Country</th>
+                                                    <th>@localizer["OrderId"]</th>
+                                                    <th>@localizer["Order date"]</th>
+                                                    <th>@localizer["Total"]</th>
+                                                    <th>@localizer["Customer"]</th>
+                                                    <th>@localizer["Country"]</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

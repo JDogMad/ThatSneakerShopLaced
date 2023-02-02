@@ -1,19 +1,22 @@
-﻿@{ ViewData["Title"] = "Stock Management"; }
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@{ ViewData["Title"] = "Stock Management"; }
 
 
 <div class="col-lg-6 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title">Stock</h4>
+                <h4 class="card-title">@localizer["Stock"]</h4>
             </div>
             <div class="table">
                 <table class="table" id="shoe_stock-table">
                     <thead>
                         <tr>
-                            <th>Shoe</th>
-                            <th>Price</th>
-                            <th>Stock</th>
+                            <th>@localizer["Shoe"]</th>
+                            <th>@localizer["Price"]</th>
+                            <th>@localizer["Stock"]</th>
                         </tr>
                     </thead>
                     <tbody>
