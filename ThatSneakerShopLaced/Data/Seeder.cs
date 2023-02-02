@@ -68,68 +68,8 @@ namespace ThatSneakerShopLaced.Data {
                         // Add to user role
                         userManager.AddToRoleAsync(ManagerShopNY, "Manager").Wait();
                     }
-
-                    context.UserRoles.AddRange(
-                           new IdentityUserRole<string> { RoleId = "User", UserId = Admin.Id },
-                           new IdentityUserRole<string> { RoleId = "Admin", UserId = Admin.Id },
-                           new IdentityUserRole<string> { RoleId = "Manager", UserId = Admin.Id }
-                       );
-                    context.SaveChanges();
-
-                    // I had a error, it seemed that the roles were being made but the users not 
-                    // Then I made a new database and it worked perfectly 
-                    // But just in case roles are made and users not 
-                    // I create them here 
-                } else {
-                    Laced_User UserDima = new Laced_User {
-                        Email = "king-dima@gmail.com",
-                        EmailConfirmed = true,
-                        LockoutEnabled = true,
-                        UserName = "KingDima420",
-                        FirstName = "Dima",
-                        LastName = "King",
-                        Address = "6 Lees Creek Court Bronx, NY 10463"
-                    };
-                    
-                    Laced_User Admin = new Laced_User {
-                        Email = "admin@laced23.be",
-                        EmailConfirmed = true,
-                        LockoutEnabled = false,
-                        UserName = "Admin",
-                        FirstName = "-",
-                        LastName = "-",
-                        Address = "-",
-                    };
-                    Laced_User ManagerShopNY = new Laced_User {
-                        Email = "help_NY@laced23.be",
-                        EmailConfirmed = true,
-                        LockoutEnabled = false,
-                        UserName = "ManagerNY",
-                        FirstName = "Manager NY",
-                        LastName = "-",
-                        Address = "250 West Yukon Dr. New York, NY 10002",
-                        PostalCode = "10002"
-                    };
-
-                    // Seed users 
-                    var result = userManager.CreateAsync(UserDima, "Abc123!").Result;
-                    if (result.Succeeded) {
-                        // Add to user role
-                        userManager.AddToRoleAsync(UserDima, "User").Wait();
-                    }
-                    var result2 = userManager.CreateAsync(Admin, "Abc123!").Result;
-                    if (result2.Succeeded) {
-                        // Add to user role
-                        userManager.AddToRoleAsync(Admin, "Admin").Wait();
-                    }
-                    var result3 = userManager.CreateAsync(ManagerShopNY, "Abc123!").Result;
-                    if (result3.Succeeded) {
-                        // Add to user role
-                        userManager.AddToRoleAsync(ManagerShopNY, "Manager").Wait();
-                    }
-                }
+                } 
                 
-
                 if (!context.Category.Any()) {
                     context.Category.AddRange(
                         new Category { CategoryName = "Kids" },
